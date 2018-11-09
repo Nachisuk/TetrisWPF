@@ -23,7 +23,7 @@ namespace TetrisWPF
         public MainWindow()
         {
             InitializeComponent();
-            //Test
+            //Testa
         }
     }
 }
