@@ -223,7 +223,7 @@ namespace TetrisWPF
 
                         if (tetrisColorGrid[i, j] < 1 || tetrisColorGrid[i, j] > 8)
                         {
-                            var filename = @"C:\Users\Nachisu\documents\visual studio 2017\Projects\TetrisWPF\TetrisWPF\Images\tetrisElement.PNG";
+                            var filename ="../../Images/tetrisElement.PNG";
                             BitmapImage img = new BitmapImage(new Uri(filename,UriKind.Relative));
                             ImageBrush image = new ImageBrush();
                             image.ImageSource = img;
