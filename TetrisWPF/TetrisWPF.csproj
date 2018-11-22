@@ -55,7 +55,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BazaWynikow.cs" />
+    <Compile Include="GameOverPopUp.xaml.cs">
+      <DependentUpon>GameOverPopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenuOptions.cs" />
+    <Compile Include="MainMenuStart.xaml.cs">
+      <DependentUpon>MainMenuStart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PausePopUp.xaml.cs">
+      <DependentUpon>PausePopUp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tetrimino.cs" />
+    <Page Include="GameOverPopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +85,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainMenuStart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PausePopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -94,6 +123,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mainmenutext.gif" />
+    <Content Include="Images\tetrisMainMenu.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tetrisElement.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

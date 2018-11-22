@@ -91,7 +91,7 @@ namespace TetrisWPF
 
         public static MainWindow Instance { get; private set; }
 
-        public MainWindow()
+        public MainWindow(string GameMode)
         {
             Instance = this;
             InitializeComponent();
@@ -101,6 +101,7 @@ namespace TetrisWPF
             //Test1
             Rysuj();
 
+            actualGameMode = GameMode;
 
             tetris = new Tetrimo();
             następnyTetris = new Tetrimo();
@@ -148,6 +149,7 @@ namespace TetrisWPF
             playTime = 0;
             czyPokazywać = false;
             isHaunted = false;
+            actualGameMode = " LandSlide ";
             // grid[10, 5] = 1;
         }
 
@@ -221,7 +223,13 @@ namespace TetrisWPF
 
                         if (tetrisColorGrid[i, j] < 1 || tetrisColorGrid[i, j] > 8)
                         {
-                            border.Background = new SolidColorBrush(ColorAssign(aktualnyKolor));
+                            var filename = @"C:\Users\Nachisu\documents\visual studio 2017\Projects\TetrisWPF\TetrisWPF\Images\tetrisElement.PNG";
+                            BitmapImage img = new BitmapImage(new Uri(filename,UriKind.Relative));
+                            ImageBrush image = new ImageBrush();
+                            image.ImageSource = img;
+
+                            border.Background = image;
+                            //border.Background = new SolidColorBrush(ColorAssign(aktualnyKolor));
                             border.Padding = new Thickness(0);
                             //Console.ForegroundColor = Color(aktualnyKolor);
                         }
@@ -446,9 +454,9 @@ namespace TetrisWPF
                 case " LandSlide ":
                     playTime = (int)timer.ElapsedMilliseconds / 1000;
 
-                    Console.SetCursorPosition(5, 4);
-                    Console.Write("Następny osuw za: ");
-                    Console.SetCursorPosition(23, 4);
+                    //Console.SetCursorPosition(5, 4);
+                    //Console.Write("Następny osuw za: ");
+                    //Console.SetCursorPosition(23, 4);
 
                     float czas1 = 16 - playTime;
                     Console.Write("" + czas1 + " ");
@@ -484,7 +492,7 @@ namespace TetrisWPF
             switch(e.Key)
             {
                 case Key.Left:
-                    if (!tetris.czyJestCosZLewa())
+                    if (!tetris.czyJestCosZLewa() && !czyZapauzowane)
                     {
                         for (int i = 0; i < 4; i++)
                         {
@@ -496,7 +504,7 @@ namespace TetrisWPF
                     }
                     break;
                 case Key.Right:
-                    if (!tetris.czyJestCosZPrawa())
+                    if (!tetris.czyJestCosZPrawa() && !czyZapauzowane)
                     {
                         for (int i = 0; i < 4; i++)
                         {
@@ -506,16 +514,18 @@ namespace TetrisWPF
                     }
                     break;
                 case Key.Down:
-                    tetris.Opadaj();
+                    if(!czyZapauzowane)
+                            tetris.Opadaj();
                     break;
                 case Key.Up:
-                   while(tetris.czyJestCosPonizej() != true)
+                   while(tetris.czyJestCosPonizej() != true && !czyZapauzowane)
                     {
                         tetris.Opadaj();
                     }
                     break;
                 case Key.Space:
-                    tetris.Obroc();
+                    if(!czyZapauzowane)
+                             tetris.Obroc();
                     break;
                 case Key.R:
                      Restart();
@@ -619,8 +629,11 @@ namespace TetrisWPF
 
         public void Restart()
         {
-            MainWindow mainwindow = new MainWindow();
-            mainwindow.InitializeVariables();
+            MainWindow main = new MainWindow(actualGameMode);
+            App.Current.MainWindow = main;
+            this.Close();
+            main.Show();
+
         }
 
         public void Podsumowanie()
@@ -631,8 +644,16 @@ namespace TetrisWPF
 
         public void Pause()
         {
-            if (mainTimer.IsEnabled) mainTimer.Stop();
-            else mainTimer.Start();
+            if (mainTimer.IsEnabled) 
+            {
+                mainTimer.Stop();
+                czyZapauzowane = true;
+            }
+            else 
+            {
+                mainTimer.Start();
+                czyZapauzowane = false;
+            }
         }
     }
 }
