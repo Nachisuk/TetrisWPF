@@ -24,5 +24,20 @@ namespace TetrisWPF
         {
             InitializeComponent();
         }
+
+        public void Sterowanie(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.P:
+                    this.Close();
+                    break;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.DialogResult = true;
+        }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TetrisWPF.Properties;
 
 namespace TetrisWPF
 {
@@ -423,11 +424,7 @@ namespace TetrisWPF
                     }
                 }
             }
-            if (czyZapauzowane)
-            {
-                //Interface.PausePopUp();
-
-            }
+            
             switch (actualGameMode)
             {
                 case "  Maraton ":
@@ -652,6 +649,15 @@ namespace TetrisWPF
             {
                 mainTimer.Stop();
                 czyZapauzowane = true;
+                PausePopUp dlg = new PausePopUp();
+                dlg.Owner = this;
+
+                dlg.ShowDialog();
+                if(dlg.DialogResult == true)
+                {
+                    mainTimer.Start();
+                    czyZapauzowane = false;
+                }
             }
             else 
             {
