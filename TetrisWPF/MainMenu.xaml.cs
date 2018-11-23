@@ -106,7 +106,8 @@ namespace TetrisWPF.Properties
         {
             GameBoard main = new GameBoard(gamemode);
             Instance.Content = main;
-
+            App.Current.MainWindow.Height = 1000;
+            App.Current.MainWindow.Width = 850;
         }
 
         public static void ScoreBoard()

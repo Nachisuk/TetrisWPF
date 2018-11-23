@@ -250,7 +250,7 @@ namespace TetrisWPF
                     if (lokacja[i][0] >= 0)
                     {
                         GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1]] = 1;
-                        GameBoard.tetrisColorGrid[lokacja[i][0], lokacja[i][1]] = MainWindow.aktualnyKolor;
+                        GameBoard.tetrisColorGrid[lokacja[i][0], lokacja[i][1]] = GameBoard.aktualnyKolor;
                     }
                 }
                 GameBoard.czyOpadł = true;

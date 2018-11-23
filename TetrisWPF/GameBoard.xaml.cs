@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TetrisWPF.Properties;
 
 namespace TetrisWPF
 {
@@ -542,6 +543,10 @@ namespace TetrisWPF
                     Pause();
                     break;
                 case Key.Escape:
+                    MainMenu main = new MainMenu();
+                    App.Current.MainWindow.Close();
+                    App.Current.MainWindow = main;
+                    App.Current.MainWindow.Show();
                     break;
             }
         }
@@ -637,7 +642,7 @@ namespace TetrisWPF
 
         public void Restart()
         {
-            this.Content = new GameBoard(actualGameMode);
+            App.Current.MainWindow.Content = new GameBoard(actualGameMode);
 
         }
 
@@ -653,6 +658,15 @@ namespace TetrisWPF
             {
                 mainTimer.Stop();
                 czyZapauzowane = true;
+                PausePopUp dlg = new PausePopUp();
+                dlg.Owner = App.Current.MainWindow;
+                
+                dlg.ShowDialog();
+                if (dlg.DialogResult == true)
+                {
+                    mainTimer.Start();
+                    czyZapauzowane = false;
+                }
             }
             else
             {

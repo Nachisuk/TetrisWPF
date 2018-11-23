@@ -7,38 +7,17 @@
         mc:Ignorable="d"
         KeyDown="SterowanieMenu"
         ResizeMode="NoResize"     
-    Title="MainMenu" Height="1000" Width="850">
+    Title="MainMenu" Height="700" Width="1100">
 
     <Grid>
-        <Label x:Name="Opcja0" Margin="72,328,647,303" RenderTransformOrigin="0.5,0.5">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
+        <Label x:Name="Opcja0" Margin="72,328,647,303">
+            
         </Label>
-        <Label x:Name="Opcja1" Margin="320,328,435,303" RenderTransformOrigin="0.5,0.5">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
+        <Label x:Name="Opcja1" Margin="320,328,435,303">
+           
         </Label>
-        <Label x:Name="Opcja2" Margin="576,328,185,303" RenderTransformOrigin="0.5,0.5">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
+        <Label x:Name="Opcja2" Margin="576,328,185,303">
+            
         </Label>
 
         <ContentControl Name="MainMenuHolder"/>
