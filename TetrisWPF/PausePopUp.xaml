@@ -21,6 +21,16 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="Cos" Content="Label" Grid.Column="1" Grid.Row="1"/>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="Label1" Content="Pauza" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
+            <Label x:Name="Label2" Content="Nacisnij 'P' aby wznowić grę" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </Grid>
     </Grid>
 </Window>

@@ -58,6 +58,7 @@ namespace TetrisWPF
         bool isLineCleared;
 
         //zmmienne dotyczące klocków tetrisa
+        public static string filenameTetrisa = "../../Images/";
         public static Tetrimo tetris;
         public static Tetrimo następnyTetris;
 
@@ -203,12 +204,53 @@ namespace TetrisWPF
                     Grid.SetRow(border, j);
                     Grid.SetColumn(border, i);
 
-                    border.Background = new SolidColorBrush(Colors.Beige);
+                    border.Background = new SolidColorBrush(Colors.Black);
                     border.Padding = new Thickness(0);
 
                     GameBoard1.Children.Add(border);
                 }
             }
+        }
+
+
+        public static ImageBrush ImgAssign(int rodzaj)
+        {
+            
+            string fullFileName = filenameTetrisa+"tetrisElement/";
+            switch (rodzaj)
+            {
+                case 1:
+                    fullFileName+="Aqua";
+                    break;
+                case 2:
+                    fullFileName += "Blue";
+                    break;
+                case 3:
+                    fullFileName += "Yellow";
+                    break;
+                case 4:
+                    fullFileName += "Green";
+                    break;
+                case 5:
+                    fullFileName += "Magenta";
+                    break;
+                case 6:
+                    fullFileName += "Red";
+                    break;
+                case 7:
+                    fullFileName += "DarkGreen";
+                    break;
+                default:
+                    fullFileName += "Black";
+                    break;
+            }
+
+            fullFileName +=".png";
+
+            BitmapImage img = new BitmapImage(new Uri(fullFileName, UriKind.Relative));
+            ImageBrush image = new ImageBrush();
+            image.ImageSource = img;
+            return image;
         }
 
 
@@ -228,12 +270,7 @@ namespace TetrisWPF
 
                         if (tetrisColorGrid[i, j] < 1 || tetrisColorGrid[i, j] > 8)
                         {
-                            var filename = "../../Images/tetrisElement.PNG";
-                            BitmapImage img = new BitmapImage(new Uri(filename, UriKind.Relative));
-                            ImageBrush image = new ImageBrush();
-                            image.ImageSource = img;
-
-                            border.Background = image;
+                            border.Background = ImgAssign(aktualnyKolor);
                             //border.Background = new SolidColorBrush(ColorAssign(aktualnyKolor));
                             border.Padding = new Thickness(0);
                             //Console.ForegroundColor = Color(aktualnyKolor);
@@ -241,7 +278,8 @@ namespace TetrisWPF
 
                         else
                         {
-                            border.Background = new SolidColorBrush(ColorAssign(tetrisColorGrid[i, j]));
+                            border.Background = ImgAssign(tetrisColorGrid[i, j]);
+                            //border.Background = new SolidColorBrush(ColorAssign(tetrisColorGrid[i, j]));
                             border.Padding = new Thickness(0);
                             //  Console.ForegroundColor = Color(tetrisColorGrid[i, j]);
                         }
@@ -255,7 +293,7 @@ namespace TetrisWPF
                             }
                             else
                             {
-                                border.Background = new SolidColorBrush(Colors.Beige);
+                                border.Background = new SolidColorBrush(Colors.Black);
                                 border.Padding = new Thickness(0);
 
                                 Grid.SetRow(border, i);
@@ -279,7 +317,7 @@ namespace TetrisWPF
                         Grid.SetRow(border, i);
                         Grid.SetColumn(border, j);
 
-                        border.Background = new SolidColorBrush(Colors.Beige);
+                        border.Background = new SolidColorBrush(Colors.Black);
                         border.Padding = new Thickness(0);
                         Instance.GameBoard1.Children.Add(border);
                     }
@@ -303,7 +341,7 @@ namespace TetrisWPF
                     Grid.SetRow(border, i);
                     Grid.SetColumn(border, j);
 
-                    border.Background = new SolidColorBrush(Colors.Beige);
+                    border.Background = new SolidColorBrush(Colors.Black);
                     border.Padding = new Thickness(0);
                 }
             }
@@ -321,8 +359,8 @@ namespace TetrisWPF
                     {
                         Grid.SetRow(border, i);
                         Grid.SetColumn(border, j);
-
-                        border.Background = new SolidColorBrush(ColorAssign(nastepnyKolor));
+                        border.Background = ImgAssign(nastepnyKolor);
+                        //border.Background = new SolidColorBrush(ColorAssign(nastepnyKolor));
                         border.Padding = new Thickness(0);
                     }
                 }
@@ -615,12 +653,11 @@ namespace TetrisWPF
         public void Restart()
         {
             App.Current.MainWindow.Content = new GameBoard(actualGameMode);
-
         }
 
         public void Podsumowanie()
         {
-            //TYMCZASOWE!!!!!!!!!!!!!!!!!!
+            //TYMCZASOWE!!!!!!!!!!!!!!!!!! - po prostu menu odpala
             MainMenu main = new MainMenu();
             App.Current.MainWindow.Close();
             App.Current.MainWindow = main;
@@ -644,11 +681,7 @@ namespace TetrisWPF
                     czyZapauzowane = false;
                 }
             }
-            else
-            {
-                mainTimer.Start();
-                czyZapauzowane = false;
-            }
+            
         }
     }
 }

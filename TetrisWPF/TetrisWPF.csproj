@@ -132,10 +132,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mainmenutext.gif" />
+    <Resource Include="Images\tetrisElement\Aqua.png" />
+    <Resource Include="Images\tetrisElement\Blue.png" />
+    <Resource Include="Images\tetrisElement\DarkGreen.png" />
+    <Resource Include="Images\tetrisElement\Green.png" />
+    <Resource Include="Images\tetrisElement\Magenta.png" />
+    <Resource Include="Images\tetrisElement\Red.png" />
+    <Resource Include="Images\tetrisElement\Yellow.png" />
+    <Resource Include="Images\tetrisElement\Black.png" />
     <Content Include="Images\tetrisMainMenu.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\tetrisElement.PNG" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
