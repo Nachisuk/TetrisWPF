@@ -37,7 +37,6 @@ namespace TetrisWPF
         public string nazwa = " Tablice wyników ";
         public void FunkcjaOpcji()
         {
-            Console.Clear();
             MainMenu.ScoreBoard();
         }
 

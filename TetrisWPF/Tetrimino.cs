@@ -196,7 +196,7 @@ namespace TetrisWPF
 
             for (int i = 0; i < 4; i++)
             {
-                if (MainWindow.lokacjaOstatniegoTetrisaGrid[this.lokacja[i][0], this.lokacja[i][1]] == 1)
+                if (GameBoard.lokacjaOstatniegoTetrisaGrid[this.lokacja[i][0], this.lokacja[i][1]] == 1)
                 {
                     //GameBoard.czyGameOver = true;
                     return false;
@@ -218,24 +218,24 @@ namespace TetrisWPF
             while (!czyPonizej)
             {
                 
-                if (x_position + range >= MainWindow.Instance.GameBoard.RowDefinitions.Count)
+                if (x_position + range >= GameBoard.Instance.GameBoard1.RowDefinitions.Count)
                 {
-                    MainWindow.lokacjaOstatniegoTetrisaGrid[x_position, y_position] = 1;
-                    MainWindow.tetrisColorGrid[x_position, y_position] = 8;
+                    GameBoard.lokacjaOstatniegoTetrisaGrid[x_position, y_position] = 1;
+                    GameBoard.tetrisColorGrid[x_position, y_position] = 8;
                     czyPonizej = true;
                 }
-                else if (x_position + range < MainWindow.Instance.GameBoard.RowDefinitions.Count)
+                else if (x_position + range < GameBoard.Instance.GameBoard1.RowDefinitions.Count)
                 {
-                    if (MainWindow.lokacjaOstatniegoTetrisaGrid[x_position + range, y_position] == 1)
+                    if (GameBoard.lokacjaOstatniegoTetrisaGrid[x_position + range, y_position] == 1)
                     {
-                        MainWindow.lokacjaOstatniegoTetrisaGrid[x_position, y_position] = 1;
-                        MainWindow.tetrisColorGrid[x_position, y_position] = 8;
+                        GameBoard.lokacjaOstatniegoTetrisaGrid[x_position, y_position] = 1;
+                        GameBoard.tetrisColorGrid[x_position, y_position] = 8;
                         czyPonizej = true;
                     }
                 }
                 x_position++;
             }
-            MainWindow.Rysuj();
+            GameBoard.Rysuj();
         }
 
         public void Opadaj()
@@ -249,11 +249,11 @@ namespace TetrisWPF
                 {
                     if (lokacja[i][0] >= 0)
                     {
-                        MainWindow.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1]] = 1;
-                        MainWindow.tetrisColorGrid[lokacja[i][0], lokacja[i][1]] = MainWindow.aktualnyKolor;
+                        GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1]] = 1;
+                        GameBoard.tetrisColorGrid[lokacja[i][0], lokacja[i][1]] = MainWindow.aktualnyKolor;
                     }
                 }
-                MainWindow.czyOpadł = true;
+                GameBoard.czyOpadł = true;
             }
             else
             {
@@ -269,11 +269,11 @@ namespace TetrisWPF
         {
             for (int i = 0; i < 4; i++)
             {
-                if (lokacja[i][0] + 1 >= MainWindow.Instance.GameBoard.RowDefinitions.Count) return true;
-                if (lokacja[i][0] + 1 < MainWindow.Instance.GameBoard.RowDefinitions.Count)
+                if (lokacja[i][0] + 1 >= GameBoard.Instance.GameBoard1.RowDefinitions.Count) return true;
+                if (lokacja[i][0] + 1 < GameBoard.Instance.GameBoard1.RowDefinitions.Count)
                 {
                     if (lokacja[i][0] >= 0)
-                        if (MainWindow.lokacjaOstatniegoTetrisaGrid[lokacja[i][0] + 1, lokacja[i][1]] == 1)
+                        if (GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0] + 1, lokacja[i][1]] == 1)
                         {
                             return true;
                         }
@@ -290,7 +290,7 @@ namespace TetrisWPF
                 {
                     return true;
                 }
-                else if (lokacja[i][0] >= 0 && MainWindow.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1] - 1] == 1)
+                else if (lokacja[i][0] >= 0 && GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1] - 1] == 1)
                 {
                     return true;
                 }
@@ -302,11 +302,11 @@ namespace TetrisWPF
         {
             for (int i = 0; i < 4; i++)
             {
-                if (lokacja[i][1] == MainWindow.Instance.GameBoard.ColumnDefinitions.Count-1)
+                if (lokacja[i][1] == GameBoard.Instance.GameBoard1.ColumnDefinitions.Count-1)
                 {
                     return true;
                 }
-                else if (lokacja[i][0] >= 0 && MainWindow.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1] + 1] == 1)
+                else if (lokacja[i][0] >= 0 && GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1] + 1] == 1)
                 {
                     return true;
                 }
@@ -316,19 +316,19 @@ namespace TetrisWPF
 
         public void Aktualizuj()
         {
-            for (int i = 0; i < MainWindow.Instance.GameBoard.RowDefinitions.Count; i++)
+            for (int i = 0; i < GameBoard.Instance.GameBoard1.RowDefinitions.Count; i++)
             {
-                for (int j = 0; j < MainWindow.Instance.GameBoard.ColumnDefinitions.Count; j++)
+                for (int j = 0; j < GameBoard.Instance.GameBoard1.ColumnDefinitions.Count; j++)
                 {
-                    MainWindow.grid[i, j] = 0;
+                    GameBoard.grid[i, j] = 0;
                 }
             }
             for (int i = 0; i < 4; i++)
             {
                 if (lokacja[i][0] >= 0)
-                    MainWindow.grid[lokacja[i][0], lokacja[i][1]] = 1;
+                    GameBoard.grid[lokacja[i][0], lokacja[i][1]] = 1;
             }
-            MainWindow.Rysuj();
+            GameBoard.Rysuj();
         }
 
         private void ObrocKsztalt()
@@ -557,7 +557,7 @@ namespace TetrisWPF
                 {
                     if (lokacja[i][1] < 0) //wychodzi za lewą granice
                         Przesun(1, 0);
-                    else if (lokacja[i][1] >= MainWindow.Instance.GameBoard.ColumnDefinitions.Count)
+                    else if (lokacja[i][1] >= GameBoard.Instance.GameBoard1.ColumnDefinitions.Count)
                         Przesun(-1, 0);
                 }
                 if (i == 4)
@@ -569,7 +569,7 @@ namespace TetrisWPF
             for (int i = 0; i < 4; i++)
             {
                 if (lokacja[i][0] >= 0)
-                    if (MainWindow.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1]] == 1)
+                    if (GameBoard.lokacjaOstatniegoTetrisaGrid[lokacja[i][0], lokacja[i][1]] == 1)
                     {
                         nachodzi = true;
                         break;

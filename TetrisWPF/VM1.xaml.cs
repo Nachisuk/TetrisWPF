@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TetrisWPF.Properties
+namespace TetrisWPF
 {
     /// <summary>
-    /// Logika interakcji dla klasy PausePopUp.xaml
+    /// Logika interakcji dla klasy VM1.xaml
     /// </summary>
-    public partial class PausePopUp : Window
+    public partial class VM1 : Page
     {
-        public PausePopUp()
+        public VM1()
         {
             InitializeComponent();
         }

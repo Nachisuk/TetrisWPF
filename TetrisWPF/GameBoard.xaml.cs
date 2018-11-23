@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,9 +18,9 @@ using System.Windows.Threading;
 namespace TetrisWPF
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logika interakcji dla klasy GameBoard.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class GameBoard : Page
     {
         public const int boardHeight = 24;
         public const int Padding = 1;
@@ -89,9 +88,9 @@ namespace TetrisWPF
 
         public DispatcherTimer mainTimer;
 
-        public static MainWindow Instance { get; private set; }
+        public static GameBoard Instance { get; private set; }
 
-        public MainWindow(string GameMode)
+        public GameBoard(string GameMode)
         {
             Instance = this;
             InitializeComponent();
@@ -100,6 +99,8 @@ namespace TetrisWPF
             DrawGameBoard2();
             //Test1
             Rysuj();
+
+            Application.Current.MainWindow.KeyDown += new KeyEventHandler(Sterowanie2);
 
             actualGameMode = GameMode;
 
@@ -114,13 +115,11 @@ namespace TetrisWPF
             bazaWynikow.InicjalizujBazeWynikow();
 
             // Uruchom();
-
         }
-
         public void TimerStart()
         {
             mainTimer = new DispatcherTimer();
-            mainTimer.Interval = new TimeSpan(0, 0, 0,0,100);
+            mainTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             mainTimer.Tick += Callback;
             mainTimer.Start();
         }
@@ -129,7 +128,7 @@ namespace TetrisWPF
         {
             grid = new int[boardHeight, boardWidth];
             lokacjaOstatniegoTetrisaGrid = new int[boardHeight, boardWidth];
-            tetrisColorGrid = new int[boardHeight,boardWidth];
+            tetrisColorGrid = new int[boardHeight, boardWidth];
 
             timer = new Stopwatch();
             timer.Start();
@@ -183,8 +182,8 @@ namespace TetrisWPF
 
         public void DrawGameBoard2()
         {
-            int Rows = GameBoard.RowDefinitions.Count;
-            int Columns = GameBoard.ColumnDefinitions.Count;
+            int Rows = GameBoard1.RowDefinitions.Count;
+            int Columns = GameBoard1.ColumnDefinitions.Count;
 
             Label[,] BlockControls = new Label[Columns, Rows];
             for (int i = 0; i < Columns; i++)
@@ -192,9 +191,9 @@ namespace TetrisWPF
                 for (int j = 0; j < Rows; j++)
                 {
                     Border border = new Border();
-                    
 
-                    double width = GameBoard.ColumnDefinitions[0].ActualWidth;
+
+                    double width = GameBoard1.ColumnDefinitions[0].ActualWidth;
 
                     border.Width = 30 - Padding * 2;
                     border.Height = 30 - Padding * 2;
@@ -205,30 +204,30 @@ namespace TetrisWPF
                     border.Background = new SolidColorBrush(Colors.Beige);
                     border.Padding = new Thickness(0);
 
-                    GameBoard.Children.Add(border);
+                    GameBoard1.Children.Add(border);
                 }
             }
         }
-       
+
 
         public static void Rysuj()
         {
-            Instance.GameBoard.Children.Clear();
-            for (int i = 0; i < Instance.GameBoard.RowDefinitions.Count; i++)
+            Instance.GameBoard1.Children.Clear();
+            for (int i = 0; i < Instance.GameBoard1.RowDefinitions.Count; i++)
             {
-                for (int j = 0; j < Instance.GameBoard.ColumnDefinitions.Count; j++)
+                for (int j = 0; j < Instance.GameBoard1.ColumnDefinitions.Count; j++)
                 {
                     if (grid[i, j] == 1 || lokacjaOstatniegoTetrisaGrid[i, j] == 1)
                     {
                         Border border = new Border();
                         border.Width = Size - Padding * 2;
                         border.Height = Size - Padding * 2;
-                        Instance.GameBoard.Children.Add(border);
+                        Instance.GameBoard1.Children.Add(border);
 
                         if (tetrisColorGrid[i, j] < 1 || tetrisColorGrid[i, j] > 8)
                         {
-                            var filename ="../../Images/tetrisElement.PNG";
-                            BitmapImage img = new BitmapImage(new Uri(filename,UriKind.Relative));
+                            var filename = "../../Images/tetrisElement.PNG";
+                            BitmapImage img = new BitmapImage(new Uri(filename, UriKind.Relative));
                             ImageBrush image = new ImageBrush();
                             image.ImageSource = img;
 
@@ -240,7 +239,7 @@ namespace TetrisWPF
 
                         else
                         {
-                            border.Background = new SolidColorBrush(ColorAssign(tetrisColorGrid[i,j]));
+                            border.Background = new SolidColorBrush(ColorAssign(tetrisColorGrid[i, j]));
                             border.Padding = new Thickness(0);
                             //  Console.ForegroundColor = Color(tetrisColorGrid[i, j]);
                         }
@@ -266,7 +265,7 @@ namespace TetrisWPF
                             Grid.SetRow(border, i);
                             Grid.SetColumn(border, j);
                         }
-                        
+
                     }
                     else
                     {
@@ -280,7 +279,7 @@ namespace TetrisWPF
 
                         border.Background = new SolidColorBrush(Colors.Beige);
                         border.Padding = new Thickness(0);
-                        Instance.GameBoard.Children.Add(border);
+                        Instance.GameBoard1.Children.Add(border);
                     }
 
                 }
@@ -307,32 +306,37 @@ namespace TetrisWPF
                 }
             }
 
-           for (int i=0; i < kształt.GetLength(0); i++)
+            for (int i = 0; i < kształt.GetLength(0); i++)
             {
-                for(int j=0;j<kształt.GetLength(1);j++)
+                for (int j = 0; j < kształt.GetLength(1); j++)
                 {
                     Border border = new Border();
                     NextTetris.Children.Add(border);
                     border.Width = 31 - Padding * 2;
                     border.Height = 31 - Padding * 2;
 
-                    if (kształt[i,j] == 1)
+                    if (kształt[i, j] == 1)
                     {
                         Grid.SetRow(border, i);
                         Grid.SetColumn(border, j);
 
                         border.Background = new SolidColorBrush(ColorAssign(nastepnyKolor));
                         border.Padding = new Thickness(0);
-                    }                    
+                    }
                 }
             }
         }
 
+        private void Page_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
         private void Callback(object sender, EventArgs e)
         {
-                Debug.WriteLine("tick");
+            Debug.WriteLine("tick");
 
-                dropTime = (int)dropTimer.ElapsedMilliseconds;
+            dropTime = (int)dropTimer.ElapsedMilliseconds;
             Debug.WriteLine(dropTime.ToString());
 
             if (dropTime > dropRate)
@@ -443,12 +447,12 @@ namespace TetrisWPF
                 case "   Ultra  ":
                     if (poziom < 5) poziom = 5;
                     playTime = (int)timer.ElapsedMilliseconds / 1000;
-                    Console.SetCursorPosition(5, 4);
-                    Console.Write("Pozotały czas: ");
-                    Console.SetCursorPosition(21, 4);
+                    //Console.SetCursorPosition(5, 4);
+                   // Console.Write("Pozotały czas: ");
+                   // Console.SetCursorPosition(21, 4);
                     float czas = 180 - playTime;
 
-                    Console.Write("" + czas + " ");
+                  //  Console.Write("" + czas + " ");
                     if (playTime > 180)
                     {
                         czyGameOver = true;
@@ -493,7 +497,7 @@ namespace TetrisWPF
 
         public void Sterowanie2(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Left:
                     if (!tetris.czyJestCosZLewa() && !czyZapauzowane)
@@ -518,22 +522,22 @@ namespace TetrisWPF
                     }
                     break;
                 case Key.Down:
-                    if(!czyZapauzowane)
-                            tetris.Opadaj();
+                    if (!czyZapauzowane)
+                        tetris.Opadaj();
                     break;
                 case Key.Up:
-                   while(tetris.czyJestCosPonizej() != true && !czyZapauzowane)
+                    while (tetris.czyJestCosPonizej() != true && !czyZapauzowane)
                     {
                         tetris.Opadaj();
                     }
                     break;
                 case Key.Space:
-                    if(!czyZapauzowane)
-                             tetris.Obroc();
+                    if (!czyZapauzowane)
+                        tetris.Obroc();
                     break;
                 case Key.R:
-                     Restart();
-                     break;
+                    Restart();
+                    break;
                 case Key.P:
                     Pause();
                     break;
@@ -545,10 +549,10 @@ namespace TetrisWPF
         public void WyczyscLinie()
         {
             int combo = 0;
-            for (int i = 0; i < Instance.GameBoard.RowDefinitions.Count; i++)
+            for (int i = 0; i < Instance.GameBoard1.RowDefinitions.Count; i++)
             {
                 int j;
-                for (j = 0; j < Instance.GameBoard.ColumnDefinitions.Count; j++)
+                for (j = 0; j < Instance.GameBoard1.ColumnDefinitions.Count; j++)
                 {
                     if (lokacjaOstatniegoTetrisaGrid[i, j] == 0) break;
                 }
@@ -582,9 +586,9 @@ namespace TetrisWPF
 
                     //przekazanie przesuniętych elementów do aktualnej tablicy przechowującej nasze klocki
 
-                    for (int z = 0; z < Instance.GameBoard.RowDefinitions.Count; z++)
+                    for (int z = 0; z < Instance.GameBoard1.RowDefinitions.Count; z++)
                     {
-                        for (int x = 0; x < Instance.GameBoard.ColumnDefinitions.Count; x++)
+                        for (int x = 0; x < Instance.GameBoard1.ColumnDefinitions.Count; x++)
                         {
                             if (nowaTablicaZrzuconychTetrisow[z, x] == 1)
                             {
@@ -629,31 +633,28 @@ namespace TetrisWPF
             }
 
         }
-        
+
 
         public void Restart()
         {
-            MainWindow main = new MainWindow(actualGameMode);
-            App.Current.MainWindow = main;
-            this.Close();
-            main.Show();
+            this.Content = new GameBoard(actualGameMode);
 
         }
 
         public void Podsumowanie()
         {
-            
-           
+
+
         }
 
         public void Pause()
         {
-            if (mainTimer.IsEnabled) 
+            if (mainTimer.IsEnabled)
             {
                 mainTimer.Stop();
                 czyZapauzowane = true;
             }
-            else 
+            else
             {
                 mainTimer.Start();
                 czyZapauzowane = false;
@@ -661,3 +662,4 @@ namespace TetrisWPF
         }
     }
 }
+

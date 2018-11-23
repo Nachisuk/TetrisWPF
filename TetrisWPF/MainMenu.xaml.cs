@@ -19,15 +19,19 @@ namespace TetrisWPF.Properties
     /// </summary>
     public partial class MainMenu : Window
     {
+        public static MainMenu Instance { get; private set; }
         public static List<MainMenuOptions> listaopcji;
         public static List<MainMenuOptions> listatrybow;
         public static bool czyTryby;
         public int i;
         public List<Label> labellist;
+        public static BazaWynikow bazaWynikow;
 
         public MainMenu()
         {
             InitializeComponent();
+            Instance = this;
+
             listaopcji = MenuOptions.ZwrocOpcje();
             listatrybow = GameMenuOptions.ZwrocTryby();
             czyTryby = false;
@@ -35,6 +39,9 @@ namespace TetrisWPF.Properties
 
             labellist = new List<Label>();
 
+            bazaWynikow = new BazaWynikow();
+            bazaWynikow.InicjalizujBazeWynikow();
+            
             labellist.Add(Opcja0);
             labellist.Add(Opcja1);
             labellist.Add(Opcja2);
@@ -44,9 +51,7 @@ namespace TetrisWPF.Properties
 
         public void MainMenuOptionsInitialize()
         {
-            Opcja0.Content = "Elson 1";
-            Opcja1.Content = "Elson 2";
-            Opcja2.Content = "Elson 3";
+            
         }
 
         public void SterowanieMenu(object sender, KeyEventArgs e)
@@ -99,15 +104,41 @@ namespace TetrisWPF.Properties
 
         public static void GameModeStart(string gamemode)
         {
-            MainWindow main = new MainWindow(gamemode);
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = main;            
-            main.Show();
+            GameBoard main = new GameBoard(gamemode);
+            Instance.Content = main;
+
         }
 
         public static void ScoreBoard()
         {
 
+           // WypiszWyniki("maraton");
+
+            List<String> lista = new List<String>();
+            lista.Add("maraton");
+            lista.Add("endless");
+            lista.Add("ultra");
+            lista.Add("landslide");
+            lista.Add("haunted");
+            int iloscOpcji = lista.Count;
+            int i = 0;
+
+            Instance.Content = new VM1();
+        }
+
+
+
+        public static void WypiszWyniki(string gamemode)
+        {
+           // Console.Clear();
+
+           // Console.WriteAscii("        " + String.Format("" + gamemode[0].ToString().ToUpper() + gamemode.Substring(1)));
+            int i = 1;
+            foreach (var wynikZNazwami in bazaWynikow.WynikiTrybowAktualne[gamemode])
+            {
+               // Console.WriteLine("\t" + i + ".\t" + wynikZNazwami.Value + " - " + wynikZNazwami.Key + " pkt.");
+               // i++;
+            }
         }
     }
 }

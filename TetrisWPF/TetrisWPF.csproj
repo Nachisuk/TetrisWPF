@@ -55,6 +55,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BazaWynikow.cs" />
+    <Compile Include="GameBoard.xaml.cs">
+      <DependentUpon>GameBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameOverPopUp.xaml.cs">
       <DependentUpon>GameOverPopUp.xaml</DependentUpon>
     </Compile>
@@ -65,10 +68,14 @@
     <Compile Include="MainMenuStart.xaml.cs">
       <DependentUpon>MainMenuStart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PausePopUp.xaml.cs">
-      <DependentUpon>PausePopUp.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Tetrimino.cs" />
+    <Compile Include="VM1.xaml.cs">
+      <DependentUpon>VM1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="GameBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameOverPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,7 +100,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PausePopUp.xaml">
+    <Page Include="VM1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

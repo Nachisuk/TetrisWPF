@@ -6,12 +6,44 @@
         xmlns:local="clr-namespace:TetrisWPF.Properties"
         mc:Ignorable="d"
         KeyDown="SterowanieMenu"
-        ResizeMode="NoResize"
-        Title="MainMenu" Height="700" Width="1100">
+        ResizeMode="NoResize"     
+    Title="MainMenu" Height="1000" Width="850">
+
     <Grid>
-        <Label x:Name="Opcja0" Margin="197,328,711,303"/>
-        <Label x:Name="Opcja1" Margin="409,328,455,303"/>
-        <Label x:Name="Opcja2" Margin="659,328,189,303"/>
-        
+        <Label x:Name="Opcja0" Margin="72,328,647,303" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Opcja1" Margin="320,328,435,303" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label x:Name="Opcja2" Margin="576,328,185,303" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+        <ContentControl Name="MainMenuHolder"/>
     </Grid>
+
+    
+        
 </Window>
