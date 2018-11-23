@@ -9,10 +9,27 @@
         ResizeMode="NoResize"
         Title="MainMenuStart" Height="700" Width="1100">
     <Grid x:Name="TetrisStart">
-        <Label Content="" Margin="179,285,155,279"  
-               FontSize="42"  FontWeight="Bold" Foreground="White" FontStretch="Expanded" />
-        <Grid x:Name="NapisTytulowy" Margin="70,232,45,191"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="NapisTytulowy" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" MinWidth="572" MinHeight="171" Margin="0 0 0 30"/>
+            <Grid x:Name="PodpisTytulowy" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" MinWidth="590" MinHeight="27"/>
+        </Grid>
 
     </Grid>
 </Window>
