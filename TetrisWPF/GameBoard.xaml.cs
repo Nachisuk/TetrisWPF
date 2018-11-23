@@ -84,6 +84,8 @@ namespace TetrisWPF
         public static bool czyPokazywać;
         public static bool isHaunted;
 
+        public static KeyEventHandler keyEventHandler;
+        public static EventHandler eventHandlerTick ;
 
         //zmienna BazyDanych
         public static BazaWynikow bazaWynikow;
@@ -102,8 +104,8 @@ namespace TetrisWPF
             //Test1
             Rysuj();
 
-            KeyEventHandler tmp = new KeyEventHandler(Sterowanie2);
-            Application.Current.MainWindow.KeyDown += tmp;
+            keyEventHandler = new KeyEventHandler(Sterowanie2);
+            Application.Current.MainWindow.KeyDown += keyEventHandler;
 
             actualGameMode = GameMode;
 
@@ -123,7 +125,9 @@ namespace TetrisWPF
         {
             mainTimer = new DispatcherTimer();
             mainTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            mainTimer.Tick += Callback;
+            eventHandlerTick = Callback;
+            mainTimer.Tick += eventHandlerTick;
+            //mainTimer.Tick += Callback;
             mainTimer.Start();
         }
 
@@ -149,7 +153,7 @@ namespace TetrisWPF
             punkty = 0; wyczyszczoneLinie = 0; combo = 0;
             poziom = 1;
             element = Encoding.ASCII.GetString(new byte[] { 65 });
-            bool isLineCleared = false;
+            isLineCleared = false;
             czyZapauzowane = false;
             czyGameOver = false;
             playTime = 0;
@@ -511,6 +515,7 @@ namespace TetrisWPF
             switch (e.Key)
             {
                 case Key.Left:
+                    Debug.WriteLine("KliknietoLewo");
                     if (!tetris.czyJestCosZLewa() && !czyZapauzowane)
                     {
                         for (int i = 0; i < 4; i++)
@@ -523,6 +528,7 @@ namespace TetrisWPF
                     }
                     break;
                 case Key.Right:
+                    Debug.WriteLine("KliknietoPrawo");
                     if (!tetris.czyJestCosZPrawa() && !czyZapauzowane)
                     {
                         for (int i = 0; i < 4; i++)
@@ -533,26 +539,34 @@ namespace TetrisWPF
                     }
                     break;
                 case Key.Down:
+                    Debug.WriteLine("KliknietoDol");
                     if (!czyZapauzowane)
                         tetris.Opadaj();
                     break;
                 case Key.Up:
+                    Debug.WriteLine("KliknietoGora");
                     while (tetris.czyJestCosPonizej() != true && !czyZapauzowane)
                     {
                         tetris.Opadaj();
                     }
                     break;
                 case Key.Space:
+                    Debug.WriteLine("KliknietoSpacja");
                     if (!czyZapauzowane)
                         tetris.Obroc();
                     break;
                 case Key.R:
+                    Debug.WriteLine("KliknietoR");
                     Restart();
                     break;
                 case Key.P:
+                    Debug.WriteLine("KliknietoP");
                     Pause();
                     break;
                 case Key.Escape:
+                    Debug.WriteLine("KliknietoEsc");
+                    mainTimer.Tick -= eventHandlerTick;
+                    Application.Current.MainWindow.KeyDown -= keyEventHandler;
                     MainMenu main = new MainMenu();
                     App.Current.MainWindow.Close();
                     App.Current.MainWindow = main;
@@ -652,11 +666,15 @@ namespace TetrisWPF
 
         public void Restart()
         {
+            mainTimer.Tick -= eventHandlerTick;
+            Application.Current.MainWindow.KeyDown -= keyEventHandler;
             App.Current.MainWindow.Content = new GameBoard(actualGameMode);
         }
 
         public void Podsumowanie()
         {
+            mainTimer.Tick -= eventHandlerTick;
+            Application.Current.MainWindow.KeyDown -= keyEventHandler;
             //TYMCZASOWE!!!!!!!!!!!!!!!!!! - po prostu menu odpala
             MainMenu main = new MainMenu();
             App.Current.MainWindow.Close();
