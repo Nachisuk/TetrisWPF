@@ -101,7 +101,8 @@ namespace TetrisWPF
             //Test1
             Rysuj();
 
-            Application.Current.MainWindow.KeyDown += new KeyEventHandler(Sterowanie2);
+            KeyEventHandler tmp = new KeyEventHandler(Sterowanie2);
+            Application.Current.MainWindow.KeyDown += tmp;
 
             actualGameMode = GameMode;
 
@@ -383,48 +384,19 @@ namespace TetrisWPF
 
                 if (czyGameOver == true)
                 {
+                    mainTimer.Stop();
+                    czyZapauzowane = true;
+                    GameOverPopUp dlg = new GameOverPopUp();
+                    dlg.Owner = App.Current.MainWindow;
 
-                    //Interface.GameOverPopUp();
-                    //Interface.GameOver_ChangeLightedOption(false);
-                    bool ifLeftPressed = true;
-                    while (true)
+                    dlg.ShowDialog();
+                    if (dlg.DialogResult == true) //wybrano przejscie do podsumowania
                     {
-                        ConsoleKey choice;
-                        if (Console.KeyAvailable)
-                        {
-                            choice = Console.ReadKey(true).Key;
-                            switch (choice)
-                            {
-                                case ConsoleKey.LeftArrow:
-                                    if (!ifLeftPressed)
-                                    {
-                                        //Interface.GameOver_ChangeLightedOption(ifLeftPressed);
-                                        ifLeftPressed = !ifLeftPressed;
-                                    }
-                                    //Restart();
-                                    break;
-                                case ConsoleKey.RightArrow:
-                                    if (ifLeftPressed)
-                                    {
-                                        //Interface.GameOver_ChangeLightedOption(ifLeftPressed);
-                                        ifLeftPressed = !ifLeftPressed;
-                                    }
-                                    //Podsumowanie();
-                                    break;
-                                case ConsoleKey.R:
-                                    Restart();
-                                    break;
-                                case ConsoleKey.Escape:
-                                    //Interface.MainMenu(MenuOptions.ZwrocOpcje());
-                                    break;
-                                case ConsoleKey.Enter:
-                                    if (ifLeftPressed)
-                                        Restart();
-                                    else
-                                        Podsumowanie();
-                                    break;
-                            }
-                        }
+                        Podsumowanie();
+                    }
+                    else //wybrano opcje restartu
+                    {
+                        Restart();
                     }
                 }
             }
@@ -648,7 +620,11 @@ namespace TetrisWPF
 
         public void Podsumowanie()
         {
-
+            //TYMCZASOWE!!!!!!!!!!!!!!!!!!
+            MainMenu main = new MainMenu();
+            App.Current.MainWindow.Close();
+            App.Current.MainWindow = main;
+            App.Current.MainWindow.Show();
 
         }
 

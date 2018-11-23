@@ -58,6 +58,9 @@
     <Compile Include="GameBoard.xaml.cs">
       <DependentUpon>GameBoard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GameOverPopUp.xaml.cs">
+      <DependentUpon>GameOverPopUp.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GameOverPopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
