@@ -31,6 +31,7 @@ namespace TetrisWPF.Properties
         {
             InitializeComponent();
             Instance = this;
+            UstawTlo();
 
             listaopcji = MenuOptions.ZwrocOpcje();
             listatrybow = GameMenuOptions.ZwrocTryby();
@@ -48,6 +49,25 @@ namespace TetrisWPF.Properties
 
             MainMenuOptionsInitialize();
         }
+
+        public void UstawTlo()
+        {
+            ImageBrush tlo = new ImageBrush();
+            Image obrazek = new Image();
+            var filename = "../../Images/tetrisMainMenu_chilled.jpg";
+            //var filename = "../../Images/tetrisMainMenu.jpg";
+            obrazek.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
+            tlo.ImageSource = obrazek.Source;
+            this.Background = tlo;
+
+            ImageBrush napis = new ImageBrush();
+            Image obrazek1 = new Image();
+            var filename1 = "../../Images/mainmenutextV2.png";
+            obrazek1.Source = new BitmapImage(new Uri(filename1, UriKind.Relative));
+            napis.ImageSource = obrazek1.Source;
+            NapisTytulowy.Background = napis;
+        }
+
 
         public void MainMenuOptionsInitialize()
         {
