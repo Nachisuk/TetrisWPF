@@ -8,11 +8,12 @@
       d:DesignHeight="1000" d:DesignWidth="850"
       KeyDown="Sterowanie2"
       PreviewKeyDown="Sterowanie2"
-      Background="Gray"
-      Title="TetrisGame">
-
+      Background="Transparent" 
+      Title="TetrisGame"
+      >
+    
     <Grid>
-        <Grid Name="GameBoard1" Margin="52,35,443,66" Background="#0f0f0f">
+        <Grid Name="GameBoard1" Margin="52,35,443,66" Background="#7F2B2F3A">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -52,7 +53,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
         </Grid>
-        <Grid Name="NextTetris" Background="#0f0f0f" HorizontalAlignment="Left" Height="76" Margin="478,35,0,0" VerticalAlignment="Top" Width="140">
+        <Grid Name="NextTetris" Background="#7F2B2F3A" HorizontalAlignment="Left" Height="76" Margin="478,35,0,0" VerticalAlignment="Top" Width="140">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -70,8 +71,8 @@
         <StackPanel Margin="411,116,154,184">
             <StackPanel HorizontalAlignment="Center" 
                         VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock FontSize="20" Width="72" ><Run Text="Poziom:"/></TextBlock>
-                <TextBlock FontSize="20" x:Name="PoziomLabel" Text="0" Foreground="OrangeRed" RenderTransformOrigin="0.5,0.5" Width="154">
+                <TextBlock FontSize="20" Width="72" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" ><Run Text="Poziom:"/></TextBlock>
+                <TextBlock Margin="7 0 0 0" FontSize="20" x:Name="PoziomLabel" Text="0" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="OrangeRed" RenderTransformOrigin="0.5,0.5" Width="154">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -85,14 +86,14 @@
 
             <StackPanel HorizontalAlignment="Center" Margin="20" 
                         VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock FontSize="20" Width="70" >Punkty:</TextBlock>
-                <TextBlock FontSize="20" x:Name="PunktyLabel" Text="0"  Foreground="OrangeRed" Width="158"></TextBlock>
+                <TextBlock FontSize="20" Width="70" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" >Punkty:</TextBlock>
+                <TextBlock Margin="7 0 0 0" FontSize="20" x:Name="PunktyLabel" Text="0"  FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="OrangeRed" Width="158"></TextBlock>
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Center" Margin="20" 
                         VerticalAlignment="Center" Orientation="Horizontal">
-                <TextBlock FontSize="20" Width="184" Height="43" ><Run Text="Wyczyszczone Linie:"/></TextBlock>
-                <TextBlock FontSize="20" x:Name="WyczyszczoneLinieLabel" Text="0"  Foreground="OrangeRed" Width="40"/>
+                <TextBlock FontSize="20" Width="184" Height="43" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" FontWeight="Bold" ><Run Text="Wyczyszczone linie:"/></TextBlock>
+                <TextBlock Margin="7 0 0 0" FontSize="20" x:Name="WyczyszczoneLinieLabel" Text="0"  FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="OrangeRed" Width="40"/>
             </StackPanel>
         </StackPanel>
     </Grid>

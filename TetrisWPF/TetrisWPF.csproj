@@ -144,6 +144,7 @@
     <Resource Include="Images\mainmenutextV2.png" />
     <Resource Include="Images\mainmenusubtext.png" />
     <Resource Include="Images\mainmenusubtextV2.png" />
+    <Resource Include="Images\dark-background.jpg" />
     <Content Include="Images\tetrisMainMenu.jpg" />
   </ItemGroup>
   <ItemGroup>

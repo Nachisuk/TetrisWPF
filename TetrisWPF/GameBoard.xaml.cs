@@ -98,6 +98,7 @@ namespace TetrisWPF
         {
             Instance = this;
             InitializeComponent();
+            UstawTlo();
             InitializeVariables();
             //DrawGameBoardStart();
             DrawGameBoard2();
@@ -121,6 +122,17 @@ namespace TetrisWPF
 
             // Uruchom();
         }
+
+        public void UstawTlo()
+        {
+            ImageBrush tlo = new ImageBrush();
+            Image obrazek = new Image();
+            var filename = "../../Images/dark-background.jpg";
+            obrazek.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
+            tlo.ImageSource = obrazek.Source;
+            this.Background = tlo;
+        }
+
         public void TimerStart()
         {
             mainTimer = new DispatcherTimer();
@@ -208,7 +220,8 @@ namespace TetrisWPF
                     Grid.SetRow(border, j);
                     Grid.SetColumn(border, i);
 
-                    border.Background = new SolidColorBrush(Colors.Black);
+                    
+                    border.Background = new SolidColorBrush(Color.FromArgb(127, 15, 21, 33));//#7F0F1521
                     border.Padding = new Thickness(0);
 
                     GameBoard1.Children.Add(border);
@@ -297,7 +310,7 @@ namespace TetrisWPF
                             }
                             else
                             {
-                                border.Background = new SolidColorBrush(Colors.Black);
+                                border.Background = new SolidColorBrush(Color.FromArgb(127, 15, 21, 33));
                                 border.Padding = new Thickness(0);
 
                                 Grid.SetRow(border, i);
@@ -321,7 +334,7 @@ namespace TetrisWPF
                         Grid.SetRow(border, i);
                         Grid.SetColumn(border, j);
 
-                        border.Background = new SolidColorBrush(Colors.Black);
+                        border.Background = new SolidColorBrush(Color.FromArgb(127, 15, 21, 33));
                         border.Padding = new Thickness(0);
                         Instance.GameBoard1.Children.Add(border);
                     }
@@ -345,7 +358,7 @@ namespace TetrisWPF
                     Grid.SetRow(border, i);
                     Grid.SetColumn(border, j);
 
-                    border.Background = new SolidColorBrush(Colors.Black);
+                    border.Background = new SolidColorBrush(Color.FromArgb(127, 15, 21, 33));
                     border.Padding = new Thickness(0);
                 }
             }
