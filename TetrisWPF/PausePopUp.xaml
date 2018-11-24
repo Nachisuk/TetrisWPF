@@ -29,8 +29,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label x:Name="Label1" Content="Pauza" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20"/>
-            <Label x:Name="Label2" Content="Nacisnij 'P' aby wznowić grę" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Grid x:Name="NapisTytulowy" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" MinWidth="537" MinHeight="163" />
+            <Grid x:Name="PodpisTytulowy" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" MinWidth="550" MinHeight="38" />
         </Grid>
     </Grid>
 </Window>

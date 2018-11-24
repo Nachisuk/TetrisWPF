@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\tetrisMainMenu_chilled.jpg" />
-    <Resource Include="Images\mainmenutext.gif" />
     <Resource Include="Images\tetrisElement\Aqua.png" />
     <Resource Include="Images\tetrisElement\Blue.png" />
     <Resource Include="Images\tetrisElement\DarkGreen.png" />
@@ -142,9 +141,12 @@
     <Resource Include="Images\tetrisElement\Yellow.png" />
     <Resource Include="Images\tetrisElement\Black.png" />
     <Resource Include="Images\mainmenutextV2.png" />
-    <Resource Include="Images\mainmenusubtext.png" />
     <Resource Include="Images\mainmenusubtextV2.png" />
     <Resource Include="Images\dark-background.jpg" />
+    <Resource Include="Images\dark-background_PopUp.jpg" />
+    <Resource Include="Images\pauseMenuText.png" />
+    <Resource Include="Images\gameOverPopUpTextV2.png" />
+    <Resource Include="Images\pauseMenuSubtextV2.png" />
     <Content Include="Images\tetrisMainMenu.jpg" />
   </ItemGroup>
   <ItemGroup>

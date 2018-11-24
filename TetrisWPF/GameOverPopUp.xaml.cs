@@ -24,6 +24,24 @@ namespace TetrisWPF
         {
             InitializeComponent();
             chosenOptionPodsumowanie = true;
+            UstawTlo();
+        }
+
+        public void UstawTlo()
+        {
+            ImageBrush tlo = new ImageBrush();
+            Image obrazek = new Image();
+            var filename = "../../Images/dark-background_PopUp.jpg";
+            obrazek.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
+            tlo.ImageSource = obrazek.Source;
+            this.Background = tlo;
+
+            ImageBrush napis = new ImageBrush();
+            Image obrazek1 = new Image();
+            var filename1 = "../../Images/gameOverPopUpTextV2.png";
+            obrazek1.Source = new BitmapImage(new Uri(filename1, UriKind.Relative));
+            napis.ImageSource = obrazek1.Source;
+            NapisTytulowy.Background = napis;
         }
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
