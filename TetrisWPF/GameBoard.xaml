@@ -11,7 +11,7 @@
       Background="Transparent" 
       Title="TetrisGame"
       >
-    
+
     <Grid>
         <Grid Name="GameBoard1" Margin="52,35,443,66" Background="#7F2B2F3A">
             <Grid.RowDefinitions>
@@ -68,7 +68,7 @@
 
         </Grid>
 
-        <StackPanel Margin="411,116,154,184">
+        <StackPanel Margin="411,116,105,184">
             <StackPanel HorizontalAlignment="Center" 
                         VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="20" Width="72" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" ><Run Text="Poziom:"/></TextBlock>
@@ -95,6 +95,13 @@
                 <TextBlock FontSize="20" Width="184" Height="43" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" FontWeight="Bold" ><Run Text="Wyczyszczone linie:"/></TextBlock>
                 <TextBlock Margin="7 0 0 0" FontSize="20" x:Name="WyczyszczoneLinieLabel" Text="0"  FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="OrangeRed" Width="40"/>
             </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" Margin="20" 
+                        VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock FontSize="20" Width="190" x:Name="TrybGry" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" />
+                <TextBlock Margin="7 0 0 0" FontSize="20" x:Name="Czas" Text=""  FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="OrangeRed" Width="33"/>
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Page>

@@ -71,6 +71,9 @@
     <Compile Include="PausePopUp.xaml.cs">
       <DependentUpon>PausePopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Summary.xaml.cs">
+      <DependentUpon>Summary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tetrimino.cs" />
     <Compile Include="VM1.xaml.cs">
       <DependentUpon>VM1.xaml</DependentUpon>
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PausePopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Summary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
