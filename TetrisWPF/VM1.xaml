@@ -9,6 +9,15 @@
       Title="VM1">
 
     <Grid>
-        <Label Content="Hello there"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid />
+
+        <TextBlock FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" >Punkty:</TextBlock>
     </Grid>
 </Page>
