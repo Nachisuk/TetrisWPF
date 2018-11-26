@@ -22,7 +22,8 @@ namespace TetrisWPF.Properties
         public static MainMenu Instance { get; private set; }
         public static List<MainMenuOptions> listaopcji;
         public static List<MainMenuOptions> listatrybow;
-        public static bool czyTryby;
+        public static List<MainMenuOptions> lista;
+        public static bool czyTryby,czyZmienic;
         public int i;
         public List<Label> labellist;
         public static BazaWynikow bazaWynikow;
@@ -35,9 +36,10 @@ namespace TetrisWPF.Properties
 
             listaopcji = MenuOptions.ZwrocOpcje();
             listatrybow = GameMenuOptions.ZwrocTryby();
+            lista = listaopcji;
             czyTryby = false;
             i = 1;
-
+            czyZmienic = false;
             labellist = new List<Label>();
 
             bazaWynikow = new BazaWynikow();
@@ -47,7 +49,10 @@ namespace TetrisWPF.Properties
             labellist.Add(Opcja1);
             labellist.Add(Opcja2);
 
-            MainMenuOptionsInitialize();
+
+            Opcja0.Content = lista[0].zwrocNazwe();
+            Opcja1.Content = lista[1].zwrocNazwe();
+            Opcja2.Content = lista[2].zwrocNazwe();
         }
 
         public void UstawTlo()
@@ -68,17 +73,39 @@ namespace TetrisWPF.Properties
             NapisTytulowy.Background = napis;
         }
 
-
-        public void MainMenuOptionsInitialize()
+        public static void MainMenuSwitch()
         {
-            
+            czyTryby = true;
+            lista = listatrybow;
+            Instance.Opcja0.Content = lista[0].zwrocNazwe();
+            Instance.Opcja1.Content = lista[1].zwrocNazwe();
+            Instance.Opcja2.Content = lista[2].zwrocNazwe();
         }
 
         public void SterowanieMenu(object sender, KeyEventArgs e)
         {
-            List<MainMenuOptions> lista;
-            if (!czyTryby) lista = listaopcji;
-            else lista = listatrybow;
+            if (czyTryby)
+            {
+                lista = listatrybow;
+                if(czyZmienic)
+                {
+                    czyZmienic = false;
+                    Opcja0.Content = lista[0].zwrocNazwe();
+                    Opcja1.Content = lista[1].zwrocNazwe();
+                    Opcja2.Content = lista[2].zwrocNazwe();
+                }
+            }
+            else
+            {
+                lista = listaopcji;
+                if(!czyZmienic)
+                {
+                    czyZmienic = true;
+                    Opcja0.Content = lista[0].zwrocNazwe();
+                    Opcja1.Content = lista[1].zwrocNazwe();
+                    Opcja2.Content = lista[2].zwrocNazwe();
+                }
+            }
 
             int liczbaOpcji = lista.Count;
             switch(e.Key)

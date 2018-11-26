@@ -110,7 +110,16 @@ namespace TetrisWPF
 
             actualGameMode = GameMode;
 
-            tetris = new Tetrimo();
+            if(GameMode == "   Ultra  ")
+            {
+                TrybGry.Text = "Pozostały czas: ";
+            }
+            if(GameMode == " LandSlide ")
+            {
+                TrybGry.Text = "Osuwisko za: ";
+            }
+
+                tetris = new Tetrimo();
             następnyTetris = new Tetrimo();
             tetris.Stwórz();
             RysujNastepny(następnyTetris.getKształt());
@@ -479,7 +488,7 @@ namespace TetrisWPF
                    // Console.Write("Pozotały czas: ");
                    // Console.SetCursorPosition(21, 4);
                     float czas = 180 - playTime;
-
+                    Czas.Text = czas.ToString();
                   //  Console.Write("" + czas + " ");
                     if (playTime > 180)
                     {
@@ -495,7 +504,7 @@ namespace TetrisWPF
                     //Console.SetCursorPosition(23, 4);
 
                     float czas1 = 16 - playTime;
-                    Console.Write("" + czas1 + " ");
+                    Czas.Text = czas1.ToString();
 
                     if (playTime > 15)
                     {
@@ -689,10 +698,7 @@ namespace TetrisWPF
             mainTimer.Tick -= eventHandlerTick;
             Application.Current.MainWindow.KeyDown -= keyEventHandler;
             //TYMCZASOWE!!!!!!!!!!!!!!!!!! - po prostu menu odpala
-            MainMenu main = new MainMenu();
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = main;
-            App.Current.MainWindow.Show();
+            App.Current.MainWindow.Content = new Summary();
 
         }
 
