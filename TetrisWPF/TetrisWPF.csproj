@@ -148,13 +148,16 @@
     <Resource Include="Images\gameOverPopUpTextV2.png" />
     <Resource Include="Images\pauseMenuSubtextV2.png" />
     <Resource Include="Images\scoreBoardBackgroundV2.jpg" />
+    <Resource Include="Images\headers\maraton.png" />
+    <Resource Include="Images\headers\endless.png" />
+    <Resource Include="Images\headers\ultra.png" />
+    <Resource Include="Images\headers\landslide.png" />
+    <Resource Include="Images\headers\haunted.png" />
     <Content Include="Images\tetrisMainMenu.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\tetrisElement.PNG" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\headers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

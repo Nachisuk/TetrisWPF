@@ -132,18 +132,6 @@ namespace TetrisWPF.Properties
 
         public static void ScoreBoard()
         {
-
-           // WypiszWyniki("maraton");
-
-            List<String> lista = new List<String>();
-            lista.Add("maraton");
-            lista.Add("endless");
-            lista.Add("ultra");
-            lista.Add("landslide");
-            lista.Add("haunted");
-            int iloscOpcji = lista.Count;
-            int i = 0;
-
             Instance.Content = new VM1();
         }
 

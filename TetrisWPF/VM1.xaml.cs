@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TetrisWPF.Properties;
 
 namespace TetrisWPF
 {
@@ -20,49 +21,61 @@ namespace TetrisWPF
     /// </summary>
     public partial class VM1 : Page
     {
+        private BazaWynikow bazaWynikow;
+        private List<String> lista;
+        private int iloscOpcji;
+        private int aktualna;
+        private KeyEventHandler keyEventHandler;
         public VM1()
         {
             InitializeComponent();
+            keyEventHandler = new KeyEventHandler(SterowanieMenu2);
+            Application.Current.MainWindow.KeyDown += keyEventHandler;
+            bazaWynikow = MainMenu.bazaWynikow; 
             UstawTlo();
-            WypiszWyniki("maraton");
-            //GameBoard.bazaWynikow.WynikiTrybowAktualne
-            /*
-             WypiszWyniki("maraton");
-            
-            List<String> lista = new List<String>();
+
+            lista = new List<String>();
             lista.Add("maraton");
             lista.Add("endless");
             lista.Add("ultra");
             lista.Add("landslide");
             lista.Add("haunted");
-            int iloscOpcji = lista.Count;
-            int i = 0;
-            while (true)
+
+            iloscOpcji = lista.Count;
+            aktualna = 0;
+
+            WypiszWyniki(lista[aktualna]);
+        }
+
+        public void SterowanieMenu2(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
             {
-                ConsoleKey key = ConsoleKey.B;
-                if (Console.KeyAvailable)
-                {
-                    key = Console.ReadKey(true).Key;
-                }
-                switch (key)
-                {
-                    case ConsoleKey.Escape:
-                        MainMenu(MenuOptions.ZwrocOpcje());
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        if (i == 0) i = iloscOpcji - 1;
-                        else i = i - 1;
-                        WypiszWyniki(lista[i]);
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (i == iloscOpcji - 1) i = 0;
-                        else i = i + 1;
-                        WypiszWyniki(lista[i]);
-                        break;
+                case Key.Left:
+                    Console.Out.WriteLine("LewyWcisniety");
+                    aktualna -= 1;
+                    if (aktualna < 0)
+                    {
+                        aktualna = iloscOpcji + aktualna;
+                    }
+                    WypiszWyniki(lista[aktualna]);
+                    break;
 
-                }
-            }*/
-
+                case Key.Right:
+                    Console.Out.WriteLine("PrawyWcisniety");
+                    aktualna += 1;
+                    aktualna = aktualna%iloscOpcji;
+                    WypiszWyniki(lista[aktualna]);
+                    break;
+                case Key.Escape:
+                    Console.Out.WriteLine("EscWcisniety");
+                    Application.Current.MainWindow.KeyDown -= keyEventHandler;
+                    MainMenu main = new MainMenu();
+                    App.Current.MainWindow.Close();
+                    App.Current.MainWindow = main;
+                    App.Current.MainWindow.Show();
+                    break;
+            }
         }
 
         public void UstawTlo()
@@ -75,9 +88,30 @@ namespace TetrisWPF
             this.Background = tlo;
         }
 
+        public string WynikiTrybuText(string tryb)
+        {
+            string wynik = "";
+            int i = 1;
+            foreach (var pozycja in bazaWynikow.WynikiTrybowAktualne[tryb])
+            {
+                wynik = wynik + "\t" + i + ".\t" + pozycja.Value + " - " + pozycja.Key + " pkt.\n";
+                i++;
+            }
+            return wynik;
+        }
+
         public void WypiszWyniki(string tryb)
         {
+            var filename = "../../Images/headers/";
+            filename += tryb + ".png";
 
+            textBlock.Text = WynikiTrybuText("maraton");
+          
+            ImageBrush napis = new ImageBrush();
+            Image obrazek1 = new Image();
+            obrazek1.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
+            napis.ImageSource = obrazek1.Source;
+            napisGrid.Background = napis;
         }
 
     }
