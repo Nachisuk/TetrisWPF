@@ -142,7 +142,7 @@ namespace TetrisWPF.Properties
                     break;
 
                 case Key.Enter:
-                    if (lista!=null)
+                    if (lista!=null && lista[i]!=null)
                         lista[i].FunkcjaOpcji();
                     break;
                 case Key.Escape:
