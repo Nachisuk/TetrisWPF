@@ -5,10 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TetrisWPF"
       mc:Ignorable="d" 
+      KeyDown="SterowanieMenu2"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Summary">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Name="napisGrid"  Grid.Column="0" Grid.Row="0" Margin="0 20 0 0" Height="83" Width="720" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock  Name="textBlock" Grid.Column="0" Grid.Row="1"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="48" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" LineHeight="72" TextAlignment="Center" >Punkty:</TextBlock>
+        <Grid Grid.Column="0" Grid.Row="2" Margin="20 20 10 20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Grid.Column="0" Grid.Row="0"  Margin="0 0 0 0" VerticalAlignment="Center"  FontSize="24" FontWeight="Bold" FontFamily="Segoe UI Symbol" Foreground="#FFCAD3DA" LineHeight="36" >Podaj swoją nazwę:</TextBlock>
+            <TextBox Name="textBox" Grid.Column="1" Grid.Row="0" Margin="40 5 40 5" Background="#7FFDFCFC" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontSize="14" Height="32" ></TextBox>
+        </Grid>
         
+
     </Grid>
 </Page>

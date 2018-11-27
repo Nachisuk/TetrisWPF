@@ -32,6 +32,7 @@ namespace TetrisWPF.Properties
         {
             InitializeComponent();
             Instance = this;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
 
             listaopcji = MenuOptions.ZwrocOpcje();
@@ -141,7 +142,8 @@ namespace TetrisWPF.Properties
                     break;
 
                 case Key.Enter:
-                    lista[i].FunkcjaOpcji();
+                    if (lista!=null)
+                        lista[i].FunkcjaOpcji();
                     break;
                 case Key.Escape:
                     czyTryby = false;
@@ -155,26 +157,67 @@ namespace TetrisWPF.Properties
             Instance.Content = main;
             App.Current.MainWindow.Height = 1000;
             App.Current.MainWindow.Width = 850;
+
+            //centrowanie okna gry
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = App.Current.MainWindow.Width;
+            double windowHeight = App.Current.MainWindow.Height;
+            App.Current.MainWindow.Left = (screenWidth / 2) - (windowWidth / 2);
+            App.Current.MainWindow.Top = (screenHeight / 2) - (windowHeight / 2);
+        }
+
+        private void Opcja0_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var key = Key.Left;
+            var target = this;
+            var routedEvent = Keyboard.KeyDownEvent;
+
+            target.RaiseEvent(
+                new KeyEventArgs(
+                    Keyboard.PrimaryDevice,
+                    PresentationSource.FromVisual(target),
+                    0,
+                    key)
+                { RoutedEvent = routedEvent }
+                );
+        }
+
+        private void Opcja2_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var key = Key.Right;
+            var target = this;
+            var routedEvent = Keyboard.KeyDownEvent;
+
+            target.RaiseEvent(
+                new KeyEventArgs(
+                    Keyboard.PrimaryDevice,
+                    PresentationSource.FromVisual(target),
+                    0,
+                    key)
+                { RoutedEvent = routedEvent }
+                );
+        }
+
+        private void Opcja1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var key = Key.Enter;
+            var target = this;
+            var routedEvent = Keyboard.KeyDownEvent;
+
+            target.RaiseEvent(
+                new KeyEventArgs(
+                    Keyboard.PrimaryDevice,
+                    PresentationSource.FromVisual(target),
+                    0,
+                    key)
+                { RoutedEvent = routedEvent }
+                );
         }
 
         public static void ScoreBoard()
         {
             Instance.Content = new VM1();
-        }
-
-
-
-        public static void WypiszWyniki(string gamemode)
-        {
-           // Console.Clear();
-
-           // Console.WriteAscii("        " + String.Format("" + gamemode[0].ToString().ToUpper() + gamemode.Substring(1)));
-            int i = 1;
-            foreach (var wynikZNazwami in bazaWynikow.WynikiTrybowAktualne[gamemode])
-            {
-               // Console.WriteLine("\t" + i + ".\t" + wynikZNazwami.Value + " - " + wynikZNazwami.Key + " pkt.");
-               // i++;
-            }
         }
     }
 }

@@ -160,6 +160,7 @@
     <Resource Include="Images\headers\ultra.png" />
     <Resource Include="Images\headers\landslide.png" />
     <Resource Include="Images\headers\haunted.png" />
+    <Resource Include="Images\podsumowanieTextV2.png" />
     <Content Include="Images\tetrisMainMenu.jpg" />
   </ItemGroup>
   <ItemGroup>

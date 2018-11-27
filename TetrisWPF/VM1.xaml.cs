@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace TetrisWPF
             switch (e.Key)
             {
                 case Key.Left:
-                    Console.Out.WriteLine("LewyWcisniety");
+                    Debug.WriteLine("LewyWcisniety");
                     aktualna -= 1;
                     if (aktualna < 0)
                     {
@@ -62,13 +63,13 @@ namespace TetrisWPF
                     break;
 
                 case Key.Right:
-                    Console.Out.WriteLine("PrawyWcisniety");
+                    Debug.WriteLine("PrawyWcisniety");
                     aktualna += 1;
                     aktualna = aktualna%iloscOpcji;
                     WypiszWyniki(lista[aktualna]);
                     break;
                 case Key.Escape:
-                    Console.Out.WriteLine("EscWcisniety");
+                    Debug.WriteLine("EscWcisniety");
                     Application.Current.MainWindow.KeyDown -= keyEventHandler;
                     MainMenu main = new MainMenu();
                     App.Current.MainWindow.Close();
@@ -105,7 +106,7 @@ namespace TetrisWPF
             var filename = "../../Images/headers/";
             filename += tryb + ".png";
 
-            textBlock.Text = WynikiTrybuText("maraton");
+            textBlock.Text = WynikiTrybuText(tryb);
           
             ImageBrush napis = new ImageBrush();
             Image obrazek1 = new Image();

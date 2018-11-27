@@ -22,6 +22,7 @@ namespace TetrisWPF.Properties
         public MainMenuStart()
         {
             InitializeComponent();
+            App.Current.MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
         }
 

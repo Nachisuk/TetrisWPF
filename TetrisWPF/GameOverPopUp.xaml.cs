@@ -25,6 +25,7 @@ namespace TetrisWPF
             InitializeComponent();
             chosenOptionPodsumowanie = true;
             UstawTlo();
+            restartBtn.Focus();
         }
 
         public void UstawTlo()

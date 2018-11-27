@@ -39,9 +39,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="Opcja0"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact" FontSize="16"></Label>
-                <Label x:Name="Opcja1"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" FontFamily="Impact" ></Label>
-                <Label x:Name="Opcja2"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact" FontSize="16" ></Label>
+                <Label x:Name="Opcja0"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact" FontSize="16" MouseLeftButtonUp="Opcja0_MouseLeftButtonUp"></Label>
+                <Label x:Name="Opcja1"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" FontFamily="Impact" MouseDoubleClick="Opcja1_MouseDoubleClick" ></Label>
+                <Label x:Name="Opcja2"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Impact" FontSize="16" MouseLeftButtonUp="Opcja2_MouseLeftButtonUp" ></Label>
             </Grid>
         </Grid>
         

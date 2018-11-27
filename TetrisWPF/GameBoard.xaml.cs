@@ -96,6 +96,7 @@ namespace TetrisWPF
 
         public GameBoard(string GameMode)
         {
+            
             Instance = this;
             InitializeComponent();
             UstawTlo();
@@ -107,6 +108,7 @@ namespace TetrisWPF
 
             keyEventHandler = new KeyEventHandler(Sterowanie2);
             Application.Current.MainWindow.KeyDown += keyEventHandler;
+            
 
             actualGameMode = GameMode;
 
@@ -131,6 +133,8 @@ namespace TetrisWPF
 
             // Uruchom();
         }
+
+        
 
         public void UstawTlo()
         {
@@ -697,8 +701,17 @@ namespace TetrisWPF
         {
             mainTimer.Tick -= eventHandlerTick;
             Application.Current.MainWindow.KeyDown -= keyEventHandler;
-            //TYMCZASOWE!!!!!!!!!!!!!!!!!! - po prostu menu odpala
             App.Current.MainWindow.Content = new Summary();
+            App.Current.MainWindow.Height = 450;
+            App.Current.MainWindow.Width = 800;
+
+            //centrowanie okna gry
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = App.Current.MainWindow.Width;
+            double windowHeight = App.Current.MainWindow.Height;
+            App.Current.MainWindow.Left = (screenWidth / 2) - (windowWidth / 2);
+            App.Current.MainWindow.Top = (screenHeight / 2) - (windowHeight / 2);
 
         }
 
