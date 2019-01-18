@@ -75,6 +75,7 @@
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tetrimino.cs" />
+    <Compile Include="Tetromino2.cs" />
     <Compile Include="VM1.xaml.cs">
       <DependentUpon>VM1.xaml</DependentUpon>
     </Compile>
