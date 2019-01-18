@@ -26,7 +26,7 @@ namespace TetrisWPF.Properties
         public static bool czyTryby,czyZmienic;
         public int i;
         public List<Label> labellist;
-        public static BazaWynikow bazaWynikow;
+        //public static BazaWynikow bazaWynikow;
 
         public MainMenu()
         {
@@ -43,8 +43,8 @@ namespace TetrisWPF.Properties
             czyZmienic = false;
             labellist = new List<Label>();
 
-            bazaWynikow = new BazaWynikow();
-            bazaWynikow.InicjalizujBazeWynikow();
+            DataOperator bazaWynikow = DataOperator.getInstance();
+            //bazaWynikow.InicjalizujBazeWynikow();
             
             labellist.Add(Opcja0);
             labellist.Add(Opcja1);

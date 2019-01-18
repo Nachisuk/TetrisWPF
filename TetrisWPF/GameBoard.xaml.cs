@@ -88,7 +88,7 @@ namespace TetrisWPF
         public static EventHandler eventHandlerTick ;
 
         //zmienna BazyDanych
-        public BazaWynikow bazaWynikow;
+        //private DataOperator bazaWynikow;
 
         public DispatcherTimer mainTimer;
 
@@ -128,7 +128,7 @@ namespace TetrisWPF
 
             TimerStart();
 
-            bazaWynikow = MainMenu.bazaWynikow;
+            DataOperator bazaWynikow = DataOperator.getInstance();
             //bazaWynikow.InicjalizujBazeWynikow();
 
             // Uruchom();

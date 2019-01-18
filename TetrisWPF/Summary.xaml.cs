@@ -75,7 +75,8 @@ namespace TetrisWPF
                         imie = "Anonim";
                     }
 
-                    MainMenu.bazaWynikow.TryZapisacDanyWynik(GameBoard.punkty, GameBoard.actualGameMode, imie);
+
+                    DataOperator.getInstance().TryZapisacDanyWynik(GameBoard.punkty, GameBoard.actualGameMode, imie);
 
                     MainMenu main = new MainMenu();
                     App.Current.MainWindow.Close();

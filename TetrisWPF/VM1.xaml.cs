@@ -22,7 +22,7 @@ namespace TetrisWPF
     /// </summary>
     public partial class VM1 : Page
     {
-        private BazaWynikow bazaWynikow;
+        private DataOperator bazaWynikow;
         private List<String> lista;
         private int iloscOpcji;
         private int aktualna;
@@ -32,7 +32,7 @@ namespace TetrisWPF
             InitializeComponent();
             keyEventHandler = new KeyEventHandler(SterowanieMenu2);
             Application.Current.MainWindow.KeyDown += keyEventHandler;
-            bazaWynikow = MainMenu.bazaWynikow; 
+            bazaWynikow = DataOperator.getInstance(); 
             UstawTlo();
 
             lista = new List<String>();
@@ -93,7 +93,7 @@ namespace TetrisWPF
         {
             string wynik = "";
             int i = 1;
-            foreach (var pozycja in bazaWynikow.WynikiTrybowAktualne[tryb])
+            foreach (var pozycja in bazaWynikow.getScores(tryb))
             {
                 wynik = wynik + "\t" + i + ".\t" + pozycja.Value + " - " + pozycja.Key + " pkt.\n";
                 i++;

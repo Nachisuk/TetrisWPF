@@ -7,13 +7,35 @@ using System.Threading.Tasks;
 
 namespace TetrisWPF
 {
-    public class BazaWynikow
+    class DataOperator
     {
-        private String nazwaPliku = "bazaWynikow.txt";
+        private static DataOperator instance = null;
+        private static readonly object padlock = new object();
 
-        //słownikTrybowzWynikami {nazwaTrybu, słownikWynikow [wynik,nazwaUzytkownikaOdpowiedzialnego zawynik]};
-        public Dictionary<String, SortedDictionary<int, String>> WynikiTrybowAktualne;
-        public Dictionary<String, SortedDictionary<int, String>> WynikiTrybowStartowe;
+        private String filename = "bazaWynikow.txt";
+        private Dictionary<String, SortedDictionary<int, String>> scores;
+
+
+        private DataOperator()
+        {
+
+            InicjalizujBazeWynikow();
+        }
+
+        public static DataOperator getInstance()
+        {
+            if (instance==null)
+            {
+                lock (padlock)
+                {
+                    if(instance == null)
+                    {
+                        instance = new DataOperator();
+                    }
+                }
+            }
+            return instance;
+        }
 
         class MojComparer : IComparer<int> //komperer do sortowania slownika kluczy od najwiekszego do najmniejszego, nie odwrotnie, jak jest domyslnie
         {
@@ -23,9 +45,19 @@ namespace TetrisWPF
             }
         }
 
+        public Dictionary<String, SortedDictionary<int, String>> getScores()
+        {
+            return scores;
+        }
+
+        public SortedDictionary<int, String> getScores(String mode)
+        {
+            return scores[mode];
+        }
+
         public void InicjalizujBazeWynikow()
         {
-            if (File.Exists(nazwaPliku))
+            if (File.Exists(filename))
             {
                 PobierzPlik();
             }
@@ -37,10 +69,10 @@ namespace TetrisWPF
 
         private void GenerujPlikZero()
         {
-            WynikiTrybowAktualne = new Dictionary<String, SortedDictionary<int, String>>();
-            WynikiTrybowStartowe = new Dictionary<String, SortedDictionary<int, String>>();
+            scores = new Dictionary<String, SortedDictionary<int, String>>();
+            //WynikiTrybowStartowe = new Dictionary<String, SortedDictionary<int, String>>();
 
-            using (StreamWriter sw = new StreamWriter(nazwaPliku))
+            using (StreamWriter sw = new StreamWriter(filename))
             {
                 foreach (var mode in new String[] { "maraton", "endless", "ultra", "landslide", "haunted" })
                 {
@@ -48,15 +80,15 @@ namespace TetrisWPF
                     String tmpNazwaAnonima = "Anonim";
 
                     sw.WriteLine(mode);
-                    WynikiTrybowAktualne.Add(mode, new SortedDictionary<int, String>(new MojComparer()));
-                    WynikiTrybowStartowe.Add(mode, new SortedDictionary<int, String>(new MojComparer()));
+                    scores.Add(mode, new SortedDictionary<int, String>(new MojComparer()));
+                    //WynikiTrybowStartowe.Add(mode, new SortedDictionary<int, String>(new MojComparer()));
 
 
                     for (int x = tmpWynik; x <= tmpWynik * (Math.Pow(2, 9)); x = x * 2)  //może być i i=0 poki i<10 przy i++
                     {
                         sw.WriteLine(x + " " + tmpNazwaAnonima);
-                        WynikiTrybowAktualne[mode].Add(x, tmpNazwaAnonima);
-                        WynikiTrybowStartowe[mode].Add(x, tmpNazwaAnonima);
+                        scores[mode].Add(x, tmpNazwaAnonima);
+                        //WynikiTrybowStartowe[mode].Add(x, tmpNazwaAnonima);
                     }
 
                     sw.WriteLine(";;");
@@ -69,17 +101,17 @@ namespace TetrisWPF
         {
             try
             {
-                using (StreamReader sr = new StreamReader(nazwaPliku))
+                using (StreamReader sr = new StreamReader(filename))
                 {
-                    WynikiTrybowAktualne = new Dictionary<String, SortedDictionary<int, String>>();
-                    WynikiTrybowStartowe = new Dictionary<String, SortedDictionary<int, String>>();
+                    scores = new Dictionary<String, SortedDictionary<int, String>>();
+                    //WynikiTrybowStartowe = new Dictionary<String, SortedDictionary<int, String>>();
 
                     string line;
 
                     while ((line = sr.ReadLine()) != null)
                     {
-                        WynikiTrybowAktualne.Add(line, new SortedDictionary<int, String>(new MojComparer()));
-                        WynikiTrybowStartowe.Add(line, new SortedDictionary<int, String>(new MojComparer()));
+                        scores.Add(line, new SortedDictionary<int, String>(new MojComparer()));
+                        //WynikiTrybowStartowe.Add(line, new SortedDictionary<int, String>(new MojComparer()));
                         String mode = line;
 
                         while ((line = sr.ReadLine()) != ";;")
@@ -88,8 +120,8 @@ namespace TetrisWPF
                             int tmpWynikUsera;
                             int.TryParse(lineTab[0], out tmpWynikUsera);
 
-                            WynikiTrybowAktualne[mode].Add(tmpWynikUsera, lineTab[1]);
-                            WynikiTrybowStartowe[mode].Add(tmpWynikUsera, lineTab[1]);
+                            scores[mode].Add(tmpWynikUsera, lineTab[1]);
+                            //WynikiTrybowStartowe[mode].Add(tmpWynikUsera, lineTab[1]);
                         }
                     }
                 }
@@ -100,6 +132,8 @@ namespace TetrisWPF
                 return;
             }
         }
+
+        
 
         public void TryZapisacDanyWynik(int iloscPunktow, string gamemode, string nazwaUzytkownika)
         {
@@ -132,15 +166,15 @@ namespace TetrisWPF
 
 
 
-            if (WynikiTrybowAktualne[kluczOfMode].ContainsKey(iloscPunktow)) //jezeli byl juz taki wynik to nadpisz go nowa nazwa uzytkownika(bo siwierzszy gracz)
+            if (scores[kluczOfMode].ContainsKey(iloscPunktow)) //jezeli byl juz taki wynik to nadpisz go nowa nazwa uzytkownika(bo siwierzszy gracz)
             {
-                WynikiTrybowAktualne[kluczOfMode][iloscPunktow] = nazwaUzytkownika;
+                scores[kluczOfMode][iloscPunktow] = nazwaUzytkownika;
                 ZapiszDoPlikuAktualne(); // TODO: do zmiany jesli bedziemy chcieli po wyłączeniu okna dopiero zapisywać, czy po jakimś przycisku zapisz
             }
-            else if (!(WynikiTrybowAktualne[kluczOfMode].Last().Key > iloscPunktow)) //jezeli nasz nowy wynik nie jest mniejszy niz najmniejszy
+            else if (!(scores[kluczOfMode].Last().Key > iloscPunktow)) //jezeli nasz nowy wynik nie jest mniejszy niz najmniejszy
             {
-                WynikiTrybowAktualne[kluczOfMode].Add(iloscPunktow, nazwaUzytkownika); //dodaje nowy
-                WynikiTrybowAktualne[kluczOfMode].Remove(WynikiTrybowAktualne[kluczOfMode].Last().Key); //usuwa najmniejszy (czyt pierwszy w kolejnosci)
+                scores[kluczOfMode].Add(iloscPunktow, nazwaUzytkownika); //dodaje nowy
+                scores[kluczOfMode].Remove(scores[kluczOfMode].Last().Key); //usuwa najmniejszy (czyt pierwszy w kolejnosci)
                 ZapiszDoPlikuAktualne(); // TODO: do zmiany jesli bedziemy chcieli po wyłączeniu okna dopiero zapisywać, czy po jakimś przycisku zapisz
             }
             //else ignoruj - nie poczeba zmian
@@ -149,27 +183,23 @@ namespace TetrisWPF
 
         public void ZapiszDoPlikuAktualne() //plus aktualizowanie WynikiTrybowStartowego
         {
-            using (StreamWriter sw = new StreamWriter(nazwaPliku))
+            using (StreamWriter sw = new StreamWriter(filename))
             {
-                WynikiTrybowStartowe = new Dictionary<string, SortedDictionary<int, string>>();
+                //WynikiTrybowStartowe = new Dictionary<string, SortedDictionary<int, string>>();
 
-                foreach (var mode in WynikiTrybowAktualne.Keys)
+                foreach (var mode in scores.Keys)
                 {
                     sw.WriteLine(mode);
-                    WynikiTrybowStartowe.Add(mode, new SortedDictionary<int, string>(new MojComparer()));
-                    foreach (var wynik in WynikiTrybowAktualne[mode])
+                    //WynikiTrybowStartowe.Add(mode, new SortedDictionary<int, string>(new MojComparer()));
+                    foreach (var wynik in scores[mode])
                     {
                         sw.WriteLine(wynik.Key + " " + wynik.Value);
-                        WynikiTrybowStartowe[mode].Add(wynik.Key, wynik.Value);
+                        //WynikiTrybowStartowe[mode].Add(wynik.Key, wynik.Value);
                     }
 
                     sw.WriteLine(";;");
                 }
             }
         }
-
-
-
-
     }
 }
