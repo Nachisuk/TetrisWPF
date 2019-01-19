@@ -57,8 +57,9 @@ public abstract class Tetromino
     public abstract int rotated { get; set; }
     public abstract Color tetriminoColor { get; set; }
     public List<int[]> lokacja = new List<int[]>();
+    public GameBoard mainGame;
 
-    public bool Stwórz()
+    public bool Stwórz(GameBoard mainGame)
     {
         for (int i = 0; i < shape.GetLength(0); i++)
         {
@@ -78,12 +79,13 @@ public abstract class Tetromino
                 return false;
             }
         }
+        this.mainGame = mainGame;
 
-        Aktualizuj();
+        Aktualizuj(mainGame);
         return true;
     }
 
-    public static void Landslide()
+    public static void Landslide(GameBoard mainGame)
     {
         Random rnd = new Random();
         int x_position = 0;
@@ -111,10 +113,10 @@ public abstract class Tetromino
             }
             x_position++;
         }
-        GameBoard.Rysuj();
+        mainGame.Rysuj();
     }
 
-    public void Opadaj()
+    public void Opadaj(GameBoard mainGame)
     {
         Random rnd = new Random();
 
@@ -138,7 +140,7 @@ public abstract class Tetromino
                 lokacja[przesunięcie][0] += 1;
                 //if (lokacja[przesunięcie][0] + 1 >= GameBoard.TetrisBoardHeight + 1) GameBoard.czyNaDole = true;
             }
-            Aktualizuj();
+            Aktualizuj(mainGame);
         }
     }
     public bool czyJestCosPonizej()
@@ -190,7 +192,7 @@ public abstract class Tetromino
         return false;
     }
 
-    public void Aktualizuj()
+    public void Aktualizuj(GameBoard mainGame)
     {
         for (int i = 0; i < GameBoard.Instance.GameBoard1.RowDefinitions.Count; i++)
         {
@@ -204,7 +206,7 @@ public abstract class Tetromino
             if (lokacja[i][0] >= 0)
                 GameBoard.grid[lokacja[i][0], lokacja[i][1]] = 1;
         }
-        GameBoard.Rysuj();
+        mainGame.Rysuj();
     }
     private void ObrocKsztalt()
     {
@@ -460,7 +462,7 @@ public abstract class Tetromino
         }
 
         //pewnie jakies sprawdzenie czy nowy wytwor i jego wspolrzedne z lokacja nie wchodza na cos. Jesli wchodza przywroc buckUp przypisujac go do this;
-        Aktualizuj();
+        Aktualizuj(mainGame);
     }
 
     private void Przesun(int d_x, int d_y)
