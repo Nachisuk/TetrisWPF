@@ -153,8 +153,32 @@ namespace TetrisWPF.Properties
 
         public static void GameModeStart(string gamemode)
         {
-            GameBoard main = new GameBoard(gamemode);
-            Instance.Content = main;
+            GameBoard main = new RegularGameBoard();
+
+            switch (gamemode)
+            {
+                case "  Maraton ":
+                    main = new LevelLimitDecorator(main);
+                    break;
+                case "  Endless ":
+
+                    break;
+                case "   Ultra  ":
+                    main = new TimeLimitDecorator(main);
+                    break;
+                case " LandSlide ":
+                    main = new LandSlideDecorator(main);
+                    break;
+                case "  Haunted  ":
+                    main = new HauntedDecorator(main);
+                    break;
+            }
+
+            
+
+            Instance.Content = main.InitializeGameBoard();
+
+
             App.Current.MainWindow.Height = 1000;
             App.Current.MainWindow.Width = 850;
 

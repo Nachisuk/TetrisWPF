@@ -58,7 +58,7 @@ public abstract class Tetromino
     public Color tetriminoColor;
     public List<int[]> lokacja = new List<int[]>();
 
-    public bool Stwórz()
+    public bool Stwórz(GameBoard mainGameBoard)
     {
         for (int i = 0; i < this.shape.GetLength(0); i++)
         {
@@ -80,7 +80,7 @@ public abstract class Tetromino
         }
 
         this.rotated = 0;
-        Aktualizuj();
+        Aktualizuj(mainGameBoard);
         return true;
     }
 
@@ -89,7 +89,7 @@ public abstract class Tetromino
         return this.shape;
     }
 
-    public static void Landslide()
+    public static void Landslide(GameBoard mainGameBoard)
     {
         Random rnd = new Random();
         int x_position = 0;
@@ -117,10 +117,10 @@ public abstract class Tetromino
             }
             x_position++;
         }
-        GameBoard.Rysuj();
+        mainGameBoard.Rysuj();
     }
 
-    public void Opadaj()
+    public void Opadaj(GameBoard mainGameBoard)
     {
         Random rnd = new Random();
 
@@ -144,7 +144,7 @@ public abstract class Tetromino
                 lokacja[przesunięcie][0] += 1;
                 //if (lokacja[przesunięcie][0] + 1 >= GameBoard.TetrisBoardHeight + 1) GameBoard.czyNaDole = true;
             }
-            Aktualizuj();
+            Aktualizuj(mainGameBoard);
         }
     }
     public bool czyJestCosPonizej()
@@ -196,7 +196,7 @@ public abstract class Tetromino
         return false;
     }
 
-    public void Aktualizuj()
+    public void Aktualizuj(GameBoard mainGameBoard)
     {
         for (int i = 0; i < GameBoard.Instance.GameBoard1.RowDefinitions.Count; i++)
         {
@@ -210,10 +210,10 @@ public abstract class Tetromino
             if (lokacja[i][0] >= 0)
                 GameBoard.grid[lokacja[i][0], lokacja[i][1]] = 1;
         }
-        GameBoard.Rysuj();
+        mainGameBoard.Rysuj();
     }
 
-    public void Obroc(int i)
+    public void Obroc(int i, GameBoard mainGameBoard)
     {
         if(i == 1)
         {
@@ -241,7 +241,7 @@ public abstract class Tetromino
             this.lokacja = tmp_location;
             this.rotated = tmp_rotation;
         }
-        Aktualizuj();
+        Aktualizuj(mainGameBoard);
     }
 
 

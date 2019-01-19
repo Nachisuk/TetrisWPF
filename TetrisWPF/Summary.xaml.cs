@@ -23,15 +23,36 @@ namespace TetrisWPF
     public partial class Summary : Page
     {
         private KeyEventHandler keyEventHandler;
+        private String gamemode;
 
-        public Summary()
+        public Summary(GameBoard _gameboard)
         {
             InitializeComponent();
             keyEventHandler = new KeyEventHandler(SterowanieMenu2);
             Application.Current.MainWindow.KeyDown += keyEventHandler;
+            gamemode = NameOfMode(_gameboard);
             UstawTlo();
             UstawWyniki();
             textBox.Focus();
+        }
+
+        private String NameOfMode(GameBoard gameBoard)
+        {
+            String res = "";
+            if (!(gameBoard is GameBoardDecorator))
+                res = "  Endless ";
+            else
+            {
+                if (gameBoard is HauntedDecorator)
+                    res = "  Haunted  ";
+                else if (gameBoard is LandSlideDecorator)
+                    res = " LandSlide ";
+                else if (gameBoard is TimeLimitDecorator)
+                    res = "   Ultra  ";
+                else if (gameBoard is LevelLimitDecorator)
+                    res = "  Maraton ";
+            }
+            return res;
         }
 
         public void UstawTlo()
@@ -76,7 +97,8 @@ namespace TetrisWPF
                     }
 
 
-                    DataOperator.getInstance().TryZapisacDanyWynik(GameBoard.punkty, GameBoard.actualGameMode, imie);
+
+                    DataOperator.getInstance().TryZapisacDanyWynik(GameBoard.punkty, gamemode, imie);
 
                     MainMenu main = new MainMenu();
                     App.Current.MainWindow.Close();

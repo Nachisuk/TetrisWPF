@@ -181,7 +181,7 @@ namespace TetrisWPF
             return this.kształt;
         }
 
-        public bool Stwórz()
+        public bool Stwórz(GameBoard mainGame)
         {
             for (int i = 0; i < kształt.GetLength(0); i++)
             {
@@ -203,11 +203,11 @@ namespace TetrisWPF
                 }
             }
 
-            Aktualizuj();
+            Aktualizuj(mainGame);
             return true;
         }
 
-        public static void Landslide()
+        public static void Landslide(GameBoard mainGame)
         {
             Random rnd = new Random();
             int x_position = 0;
@@ -235,10 +235,10 @@ namespace TetrisWPF
                 }
                 x_position++;
             }
-            GameBoard.Rysuj();
+            mainGame.Rysuj();
         }
 
-        public void Opadaj()
+        public void Opadaj(GameBoard mainGame)
         {
             Random rnd = new Random();
 
@@ -262,7 +262,7 @@ namespace TetrisWPF
                     lokacja[przesunięcie][0] += 1;
                     //if (lokacja[przesunięcie][0] + 1 >= GameBoard.TetrisBoardHeight + 1) GameBoard.czyNaDole = true;
                 }
-                Aktualizuj();
+                Aktualizuj(mainGame);
             }
         }
         public bool czyJestCosPonizej()
@@ -314,7 +314,7 @@ namespace TetrisWPF
             return false;
         }
 
-        public void Aktualizuj()
+        public void Aktualizuj(GameBoard mainGame)
         {
             for (int i = 0; i < GameBoard.Instance.GameBoard1.RowDefinitions.Count; i++)
             {
@@ -328,7 +328,7 @@ namespace TetrisWPF
                 if (lokacja[i][0] >= 0)
                     GameBoard.grid[lokacja[i][0], lokacja[i][1]] = 1;
             }
-            GameBoard.Rysuj();
+            mainGame.Rysuj();
         }
 
         private void ObrocKsztalt()
@@ -346,7 +346,7 @@ namespace TetrisWPF
             this.kształt = tmpKształt;
         }
 
-        public void Obroc()
+        public void Obroc(GameBoard mainGame)
         {
 
             //zrobienie buckupu w razie gdyby sie okazalo ze obrocony nachodzi na jakies juz w gridzie: (nie mozna zwyłym =this, bo tworzy kopię płytką)
@@ -585,7 +585,7 @@ namespace TetrisWPF
             }
 
             //pewnie jakies sprawdzenie czy nowy wytwor i jego wspolrzedne z lokacja nie wchodza na cos. Jesli wchodza przywroc buckUp przypisujac go do this;
-            Aktualizuj();
+            Aktualizuj(mainGame);
         }
 
         private void Przesun(int d_x, int d_y)
