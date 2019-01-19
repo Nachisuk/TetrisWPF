@@ -585,6 +585,11 @@ namespace TetrisWPF
                     if (!czyZapauzowane)
                         tetris.Obroc(1);
                     break;
+                case Key.Z:
+                    Debug.WriteLine("KliknietoLAlt");
+                    if (!czyZapauzowane)
+                        tetris.Obroc(2);
+                    break;
                 case Key.R:
                     Debug.WriteLine("KliknietoR");
                     Restart();
