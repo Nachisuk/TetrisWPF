@@ -368,11 +368,37 @@ namespace TetrisWPF
                     switch (stopienObrocenia)
                     {
                         case 0:
-                            stopienObrocenia=3;
+                            //przekształcenie aby było w stopniu 1
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 3;
                             lokacja[3] = lokacja[2];
                             lokacja[0] = new int[] { lokacja[3][0] - 2, lokacja[3][1] };
+                            lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] - 1};
+                            lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
+                            break;
+
+                        case 1:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 0;
+                            lokacja[0] = lokacja[1];
+                            lokacja[2] = lokacja[3];
+                            lokacja[1] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
+                            lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] + 1 };
+                            break;
+
+                        case 2:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 1;
+                            lokacja[0] = new int[] { lokacja[3][0] - 2, lokacja[3][1] };
+                            break;
+
+                        case 3:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 2;
+                            lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] + 1 };
                             lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
-                            lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] - 1 };
+                            lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
+
                             break;
                     }
                     break;
@@ -428,40 +454,47 @@ namespace TetrisWPF
                 case "J":
                     switch (stopienObrocenia)
                     {
-                        case 3:
+                        case 0:
                             //przekształcenie aby było w stopniu 1
                             kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
-                            lokacja[3] = lokacja[2];
-                            lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
-                            lokacja[0] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
-                            lokacja[1] = new int[] { lokacja[0][0], lokacja[0][1] + 1 };
-                            break;
-
-                        case 2:
-                            kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
-                            lokacja[1] = lokacja[2];
-                            lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
-                            lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
-                            lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
-                            break;
-
-                        case 1:
-                            kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
+                            stopienObrocenia = 3;
+                            lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
                             lokacja[3] = new int[] { lokacja[1][0] + 1, lokacja[1][1] };
                             lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
                             break;
 
-                        case 0:
+                        case 1:
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia = 0;
+
+                            lokacja[1] = lokacja[2];
+                            lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
+                            lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
+                            lokacja[3] = new int[] { lokacja[1][0] + 1, lokacja[1][1] };
+
                             lokacja[1] = lokacja[2];
                             lokacja[2] = lokacja[3];
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
                             lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] + 1 };
+                            break;
+
+                        case 2:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 1;
+                            lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] + 1 };
+                            lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
+                            lokacja[0] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
+                            lokacja[1] = new int[] { lokacja[0][0], lokacja[0][1] + 1 };
+                            break;
+
+                        case 3:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 2;
+                            lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
+                            lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
+                            lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
+                            lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
                             break;
                     }
                     break;
@@ -469,36 +502,48 @@ namespace TetrisWPF
                 case "L":
                     switch (stopienObrocenia)
                     {
-                        case 3:
+                        case 0:
                             //przekształcenie aby było w stopniu 1
                             kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
-                            lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
-                            lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
-                            break;
+                            stopienObrocenia = 3;
 
-                        case 2:
-                            kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
-                            lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
-                            lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
-                            break;
-
-                        case 1:
-                            kształt = ObrocKształt(kształt);
-                            stopienObrocenia++;
                             lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
                             lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
                             break;
 
-                        case 0:
+                        case 1:
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia = 0;
+
+                            lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
                             lokacja[0] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
                             lokacja[1] = new int[] { lokacja[3][0], lokacja[3][1] - 2 };
+                            break;
+
+                        case 2:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 1;
+
+
+                            lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
+                            lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };                    
+                            lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
+                            lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
+                            break;
+
+                        case 3:
+                            kształt = ObrocKształt(kształt);
+                            stopienObrocenia = 2;
+
+
+                            lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };                      
+                            lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
+                            lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
+                            lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
+
                             break;
                     }
                     break;
