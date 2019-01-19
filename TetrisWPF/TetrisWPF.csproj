@@ -71,6 +71,7 @@
     <Compile Include="PausePopUp.xaml.cs">
       <DependentUpon>PausePopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rotation.cs" />
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
