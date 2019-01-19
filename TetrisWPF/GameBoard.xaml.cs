@@ -59,8 +59,10 @@ namespace TetrisWPF
 
         //zmmienne dotyczące klocków tetrisa
         public static string filenameTetrisa = "../../Images/";
-        public static Tetrimo tetris;
-        public static Tetrimo następnyTetris;
+        public static Tetromino tetris;
+        public static Tetromino następnyTetris;
+
+        public static TetrominoFactory fabryka;
 
         //zmienna do losowanek
         public static Random rnd;
@@ -121,8 +123,10 @@ namespace TetrisWPF
                 TrybGry.Text = "Osuwisko za: ";
             }
 
-                tetris = new Tetrimo();
-            następnyTetris = new Tetrimo();
+            fabryka = new TetrominoFactory();
+
+            tetris = fabryka.FactoryMethod();
+            następnyTetris = fabryka.FactoryMethod();
             tetris.Stwórz();
             RysujNastepny(następnyTetris.getKształt());
 
@@ -434,7 +438,7 @@ namespace TetrisWPF
                     Random rnd = new Random();
 
                     tetris = następnyTetris;
-                    następnyTetris = new Tetrimo();
+                    następnyTetris = fabryka.FactoryMethod();
 
                     aktualnyKolor = nastepnyKolor;
                     nastepnyKolor = rnd.Next(1, 7);
@@ -579,7 +583,7 @@ namespace TetrisWPF
                 case Key.Space:
                     Debug.WriteLine("KliknietoSpacja");
                     if (!czyZapauzowane)
-                        tetris.Obroc();
+                        tetris.Obroc(1);
                     break;
                 case Key.R:
                     Debug.WriteLine("KliknietoR");
