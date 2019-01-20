@@ -22,6 +22,8 @@ namespace TetrisWPF.Properties
         public static MainMenu Instance { get; private set; }
         public static bool czyTryby,czyZmienic;
         public int i;
+        public KeyEventHandler keyEventHandler;
+        public static EventHandler eventHandlerTick;
         //public List<Label> labellist;
         //public static BazaWynikow bazaWynikow;
         MenuState state;
@@ -33,7 +35,11 @@ namespace TetrisWPF.Properties
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
 
+
             state = new MenuStateOptions();
+
+            keyEventHandler = new KeyEventHandler(SterowanieMenu);
+            Application.Current.MainWindow.KeyDown += keyEventHandler;
 
             WriteLabels();
         }
@@ -75,6 +81,7 @@ namespace TetrisWPF.Properties
             switch(e.Key)
             {
                 case Key.Left:
+                    Console.Out.Write("Wcisnieto lewy menu");
                     state.LeftPressed();
                     WriteLabels();
                     break;
@@ -249,12 +256,15 @@ namespace TetrisWPF.Properties
         {
             if (listOfOptions[indexOfCurrentMiddle].zwrocNazwe().Trim(' ').ToLower()=="graj")
             {
-                Console.Out.Write("Graj kliknieto");
                 context.setState(new MenuStateGameModes());
                 return;
             }
             else
+            {
+                Application.Current.MainWindow.KeyDown -= context.keyEventHandler;
                 listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
+            }
+                
 
         }
 
@@ -294,6 +304,7 @@ namespace TetrisWPF.Properties
 
         public override void EnterMiddle(MainMenu context)
         {
+            Application.Current.MainWindow.KeyDown -= context.keyEventHandler;
             listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
         }
 

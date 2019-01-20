@@ -274,25 +274,26 @@ namespace TetrisWPF
                 {
                     FallingAction();
                 }
+            }
 
-                if (czyGameOver == true)
+            if (czyGameOver == true)
+            {
+                mainTimer.Stop();
+                czyZapauzowane = true;
+                GameOverPopUp dlg = new GameOverPopUp();
+                dlg.Owner = App.Current.MainWindow;
+
+                dlg.ShowDialog();
+                if (dlg.DialogResult == true) //wybrano przejscie do podsumowania
                 {
-                    mainTimer.Stop();
-                    czyZapauzowane = true;
-                    GameOverPopUp dlg = new GameOverPopUp();
-                    dlg.Owner = App.Current.MainWindow;
-
-                    dlg.ShowDialog();
-                    if (dlg.DialogResult == true) //wybrano przejscie do podsumowania
-                    {
-                        Podsumowanie();
-                    }
-                    else //wybrano opcje restartu
-                    {
-                        Restart();
-                    }
+                    Podsumowanie();
+                }
+                else //wybrano opcje restartu
+                {
+                    Restart();
                 }
             }
+
             if (czyZapauzowane)
             {
 

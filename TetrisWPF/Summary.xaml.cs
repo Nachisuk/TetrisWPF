@@ -87,6 +87,7 @@ namespace TetrisWPF
             {
                 
                 case Key.Enter:
+                    //odcisnąc Enter!!!!!!!!!!!!!
                     Debug.WriteLine("EntrWcisniety");
                     Application.Current.MainWindow.KeyDown -= keyEventHandler;
 
