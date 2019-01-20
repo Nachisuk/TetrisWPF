@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:TetrisWPF"
       mc:Ignorable="d" 
       d:DesignHeight="1000" d:DesignWidth="850"
-      KeyDown="Sterowanie2"
-      PreviewKeyDown="Sterowanie2"
+      
       Background="Transparent" 
       Title="TetrisGame"
       >

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWPF.Properties"
         mc:Ignorable="d"
-        KeyDown="Przejdz"
+        
         ResizeMode="NoResize"
         Title="MainMenuStart" Height="700" Width="1100">
     <Grid x:Name="TetrisStart">

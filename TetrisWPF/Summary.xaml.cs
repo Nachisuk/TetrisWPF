@@ -102,11 +102,25 @@ namespace TetrisWPF
                     DataOperator.getInstance().TryZapisacDanyWynik(GameBoard.punkty, gamemode, imie);
 
                     MainMenu main = new MainMenu();
-                    App.Current.MainWindow.Close();
-                    App.Current.MainWindow = main;
-                    App.Current.MainWindow.Show();
+                    App.Current.MainWindow.Content = main;
+                    ChangeWindowResolution(700, 1100);
+
+
                     break;
             }
+        }
+
+        public void ChangeWindowResolution(int height, int width)
+        {
+            App.Current.MainWindow.Height = height;
+            App.Current.MainWindow.Width = width;
+            //centrowanie okna gry
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double windowWidth = App.Current.MainWindow.Width;
+            double windowHeight = App.Current.MainWindow.Height;
+            App.Current.MainWindow.Left = (screenWidth / 2) - (windowWidth / 2);
+            App.Current.MainWindow.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
     }

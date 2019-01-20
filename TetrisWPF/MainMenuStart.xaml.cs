@@ -19,11 +19,18 @@ namespace TetrisWPF.Properties
     /// </summary>
     public partial class MainMenuStart : Window
     {
+        public KeyEventHandler keyEventHandler;
+        public static EventHandler eventHandlerTick;
+        public static Window ThisWindow;
+
         public MainMenuStart()
         {
             InitializeComponent();
+            ThisWindow = this;
             App.Current.MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
+            keyEventHandler = new KeyEventHandler(Przejdz);
+            Application.Current.MainWindow.KeyDown += keyEventHandler;
         }
 
         public void UstawTlo()
@@ -55,10 +62,11 @@ namespace TetrisWPF.Properties
         {
             if(e.Key != Key.None)
             {
+                Application.Current.MainWindow.KeyDown -= keyEventHandler;
                 MainMenu main = new MainMenu();
-                App.Current.MainWindow = main;
-                this.Close();
-                main.Show();
+                App.Current.MainWindow.Content = main;
+                //this.Close();
+                //main.Show();
             }
         }
     }

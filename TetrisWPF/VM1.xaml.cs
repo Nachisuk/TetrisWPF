@@ -72,9 +72,9 @@ namespace TetrisWPF
                     Debug.WriteLine("EscWcisniety");
                     Application.Current.MainWindow.KeyDown -= keyEventHandler;
                     MainMenu main = new MainMenu();
-                    App.Current.MainWindow.Close();
-                    App.Current.MainWindow = main;
-                    App.Current.MainWindow.Show();
+                    //App.Current.MainWindow.Close();
+                    App.Current.MainWindow.Content = main;
+                    //App.Current.MainWindow.Show();
                     break;
             }
         }

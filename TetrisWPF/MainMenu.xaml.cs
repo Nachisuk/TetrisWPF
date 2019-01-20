@@ -17,7 +17,7 @@ namespace TetrisWPF.Properties
     /// <summary>
     /// Logika interakcji dla klasy MainMenu.xaml
     /// </summary>
-    public partial class MainMenu : Window
+    public partial class MainMenu : Page
     {
         public static MainMenu Instance { get; private set; }
         public static bool czyTryby,czyZmienic;
@@ -32,11 +32,11 @@ namespace TetrisWPF.Properties
         {
             InitializeComponent();
             Instance = this;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
 
 
-            state = new MenuStateOptions();
+            state = new MenuStateOptions(this);
 
             keyEventHandler = new KeyEventHandler(SterowanieMenu);
             Application.Current.MainWindow.KeyDown += keyEventHandler;
@@ -127,9 +127,10 @@ namespace TetrisWPF.Properties
 
             
 
-            Instance.Content = main.InitializeGameBoard();
+            App.Current.MainWindow.Content = main.InitializeGameBoard();
 
 
+            
             App.Current.MainWindow.Height = 1000;
             App.Current.MainWindow.Width = 850;
 
@@ -190,9 +191,10 @@ namespace TetrisWPF.Properties
                 );
         }
 
-        public static void ScoreBoard()
+        public void ScoreBoard()
         {
-            Instance.Content = new VM1();
+            Application.Current.MainWindow.KeyDown -= keyEventHandler;
+            App.Current.MainWindow.Content = new VM1();
         }
     }
 
@@ -227,11 +229,11 @@ namespace TetrisWPF.Properties
 
     public class MenuStateOptions : MenuState
     {
-        public MenuStateOptions()
+        public MenuStateOptions(MainMenu context)
         {
             listOfOptions = new List<MainMenuOptions>();
             listOfOptions.Add(new MainMenu_ClassicTet());
-            listOfOptions.Add(new MainMenu_Scoreboard());
+            listOfOptions.Add(new MainMenu_Scoreboard(context));
             listOfOptions.Add(new MainMenu_Statystyki());
             listOfOptions.Add(new MainMenu_ExitGame());
 
@@ -310,7 +312,7 @@ namespace TetrisWPF.Properties
 
         public override void GoBack(MainMenu context)
         {
-            context.setState(new MenuStateOptions());
+            context.setState(new MenuStateOptions(context));
         }
     }
 

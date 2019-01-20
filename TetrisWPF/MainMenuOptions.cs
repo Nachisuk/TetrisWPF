@@ -33,9 +33,21 @@ namespace TetrisWPF
     public class MainMenu_Scoreboard : MainMenuOptions
     {
         public string nazwa = " Tablice wyników ";
+        public MainMenu mainMenu;
+
+        public MainMenu_Scoreboard()
+        {
+
+        }
+
+        public MainMenu_Scoreboard (MainMenu mainMenu)
+        {
+            this.mainMenu = mainMenu;
+        }
+
         public void FunkcjaOpcji()
         {
-            MainMenu.ScoreBoard();
+            mainMenu.ScoreBoard();
         }
 
         public string zwrocNazwe()
