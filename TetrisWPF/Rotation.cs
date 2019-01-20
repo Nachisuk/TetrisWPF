@@ -410,7 +410,7 @@ namespace TetrisWPF
                 case "S":
                     switch (stopienObrocenia)
                     {
-                        case 1:
+                        case 0:
                             //przekształcenie aby było w stopniu 1
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia++;
@@ -419,7 +419,7 @@ namespace TetrisWPF
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
                             break;
 
-                        case 0:
+                        case 1:
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[2];
@@ -432,7 +432,7 @@ namespace TetrisWPF
                 case "Z":
                     switch (stopienObrocenia)
                     {
-                        case 1:
+                        case 0:
                             //przekształcenie aby było w stopniu 1
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia++;
@@ -441,7 +441,7 @@ namespace TetrisWPF
                             lokacja[0] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
                             break;
 
-                        case 0:
+                        case 1:
                             kształt = ObrocKształt(kształt);
                             stopienObrocenia = 0;
                             lokacja[2] = lokacja[3];

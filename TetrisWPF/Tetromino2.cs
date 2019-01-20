@@ -29,7 +29,7 @@ public class TetrominoFactory : FactoryCreator
     {
         Random rnd = new Random();
         int typeId = rnd.Next(1, 7);
-        switch (3)
+        switch (typeId)
         {
             case 1:
                 return new Tetromino_I();
