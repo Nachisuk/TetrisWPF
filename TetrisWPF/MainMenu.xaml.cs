@@ -25,7 +25,9 @@ namespace TetrisWPF.Properties
         public KeyEventHandler keyEventHandler;
         //public List<Label> labellist;
         //public static BazaWynikow bazaWynikow;
-        MenuState state;
+        public MenuState state;
+        public static StartWindow requestingWindow;
+
 
         public MainMenu()
         {
@@ -33,12 +35,20 @@ namespace TetrisWPF.Properties
             Instance = this;
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
-
-
+            requestingWindow = (StartWindow) App.Current.MainWindow;
             state = new MenuStateOptions(this);
 
-            keyEventHandler = new KeyEventHandler(SterowanieMenu);
-            Application.Current.MainWindow.KeyDown += keyEventHandler;
+            WriteLabels();
+        }
+
+        public MainMenu(StartWindow _window)
+        {
+            InitializeComponent();
+            Instance = this;
+            //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            UstawTlo();
+            requestingWindow = _window;
+            state = new MenuStateOptions(this);
 
             WriteLabels();
         }
@@ -74,10 +84,9 @@ namespace TetrisWPF.Properties
             NapisTytulowy.Background = napis;
         }
 
-        
-        public void SterowanieMenu(object sender, KeyEventArgs e)
+        public void Sterowanie(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.Left:
                     Console.Out.Write("Wcisnieto lewy menu");
@@ -101,45 +110,11 @@ namespace TetrisWPF.Properties
             }
         }
 
+
         public static void GameModeStart(string gamemode)
         {
-            GameBoard main = new RegularGameBoard();
-
-            switch (gamemode)
-            {
-                case "  Maraton ":
-                    main = new LevelLimitDecorator(main);
-                    break;
-                case "  Endless ":
-
-                    break;
-                case "   Ultra  ":
-                    main = new TimeLimitDecorator(main);
-                    break;
-                case " LandSlide ":
-                    main = new LandSlideDecorator(main);
-                    break;
-                case "  Haunted  ":
-                    main = new HauntedDecorator(main);
-                    break;
-            }
-
-            
-
-            App.Current.MainWindow.Content = main.InitializeGameBoard();
-
-
-            
-            App.Current.MainWindow.Height = 1000;
-            App.Current.MainWindow.Width = 850;
-
-            //centrowanie okna gry
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = App.Current.MainWindow.Width;
-            double windowHeight = App.Current.MainWindow.Height;
-            App.Current.MainWindow.Left = (screenWidth / 2) - (windowWidth / 2);
-            App.Current.MainWindow.Top = (screenHeight / 2) - (windowHeight / 2);
+            requestingWindow.SetContent(new GameContent(requestingWindow,gamemode));
+            requestingWindow.ResumeContent();
         }
 
         private void Opcja0_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -192,8 +167,8 @@ namespace TetrisWPF.Properties
 
         public void ScoreBoard()
         {
-            Application.Current.MainWindow.KeyDown -= keyEventHandler;
-            App.Current.MainWindow.Content = new VM1();
+            requestingWindow.SetContent(new ScoreBoardContent(requestingWindow));
+            requestingWindow.ResumeContent();
         }
     }
 
@@ -262,7 +237,6 @@ namespace TetrisWPF.Properties
             }
             else
             {
-                Application.Current.MainWindow.KeyDown -= context.keyEventHandler;
                 listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
             }
                 
@@ -305,7 +279,6 @@ namespace TetrisWPF.Properties
 
         public override void EnterMiddle(MainMenu context)
         {
-            Application.Current.MainWindow.KeyDown -= context.keyEventHandler;
             listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
         }
 

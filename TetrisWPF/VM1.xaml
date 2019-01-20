@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TetrisWPF"
       mc:Ignorable="d"      
       d:DesignHeight="450" d:DesignWidth="800"
-      KeyDown="SterowanieMenu2"
+      
       Title="VM1">
 
     <Grid>

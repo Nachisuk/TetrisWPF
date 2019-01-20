@@ -22,14 +22,13 @@ namespace TetrisWPF
     /// </summary>
     public partial class Summary : Page
     {
-        private KeyEventHandler keyEventHandler;
         private String gamemode;
+        public StartWindow requestingWindow;
 
-        public Summary(GameBoard _gameboard)
+        public Summary(GameBoard _gameboard, StartWindow _window)
         {
             InitializeComponent();
-            keyEventHandler = new KeyEventHandler(SterowanieMenu2);
-            Application.Current.MainWindow.KeyDown += keyEventHandler;
+            requestingWindow = _window;
             gamemode = NameOfMode(_gameboard);
             UstawTlo();
             UstawWyniki();
@@ -81,15 +80,15 @@ namespace TetrisWPF
             textBlock.Text = outstring;
         }
 
-        public void SterowanieMenu2(object sender, KeyEventArgs e)
+        public void Sterowanie(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
                 
                 case Key.Enter:
-                    //odcisnąc Enter!!!!!!!!!!!!!
+                    
                     Debug.WriteLine("EntrWcisniety");
-                    Application.Current.MainWindow.KeyDown -= keyEventHandler;
+                    
 
                     string imie = textBox.Text.Replace(" ","");
                     if (String.IsNullOrEmpty(imie))
@@ -101,27 +100,16 @@ namespace TetrisWPF
 
                     DataOperator.getInstance().TryZapisacDanyWynik(GameBoard.punkty, gamemode, imie);
 
-                    MainMenu main = new MainMenu();
-                    App.Current.MainWindow.Content = main;
-                    ChangeWindowResolution(700, 1100);
+                    requestingWindow.SetContent(new MainMenuContent(requestingWindow));
+                    requestingWindow.ResumeContent();
+                    
 
 
                     break;
             }
         }
 
-        public void ChangeWindowResolution(int height, int width)
-        {
-            App.Current.MainWindow.Height = height;
-            App.Current.MainWindow.Width = width;
-            //centrowanie okna gry
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = App.Current.MainWindow.Width;
-            double windowHeight = App.Current.MainWindow.Height;
-            App.Current.MainWindow.Left = (screenWidth / 2) - (windowWidth / 2);
-            App.Current.MainWindow.Top = (screenHeight / 2) - (windowHeight / 2);
-        }
+        
 
     }
 }

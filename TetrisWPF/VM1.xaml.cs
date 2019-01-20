@@ -26,12 +26,12 @@ namespace TetrisWPF
         private List<String> lista;
         private int iloscOpcji;
         private int aktualna;
-        private KeyEventHandler keyEventHandler;
-        public VM1()
+        public StartWindow requestingWindow;
+
+        public VM1(StartWindow _window)
         {
             InitializeComponent();
-            keyEventHandler = new KeyEventHandler(SterowanieMenu2);
-            Application.Current.MainWindow.KeyDown += keyEventHandler;
+            requestingWindow = _window;
             bazaWynikow = DataOperator.getInstance(); 
             UstawTlo();
 
@@ -48,7 +48,7 @@ namespace TetrisWPF
             WypiszWyniki(lista[aktualna]);
         }
 
-        public void SterowanieMenu2(object sender, KeyEventArgs e)
+        public void Sterowanie(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
@@ -70,11 +70,8 @@ namespace TetrisWPF
                     break;
                 case Key.Escape:
                     Debug.WriteLine("EscWcisniety");
-                    Application.Current.MainWindow.KeyDown -= keyEventHandler;
-                    MainMenu main = new MainMenu();
-                    //App.Current.MainWindow.Close();
-                    App.Current.MainWindow.Content = main;
-                    //App.Current.MainWindow.Show();
+                    requestingWindow.SetContent(new MainMenuContent(requestingWindow));
+                    requestingWindow.ResumeContent();
                     break;
             }
         }

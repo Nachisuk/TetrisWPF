@@ -21,6 +21,7 @@ namespace TetrisWPF
         public string nazwa = "      Graj       ";
         public void FunkcjaOpcji()
         {
+            //redirect to subMenu
         }
 
         public string zwrocNazwe()

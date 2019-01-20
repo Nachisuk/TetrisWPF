@@ -19,15 +19,13 @@ namespace TetrisWPF.Properties
     /// </summary>
     public partial class MainMenuStart : Page
     {
-        public KeyEventHandler keyEventHandler;
-        
+        public StartWindow requestingWindow;
 
-        public MainMenuStart()
+        public MainMenuStart(StartWindow _window)
         {
             InitializeComponent();
             UstawTlo();
-            keyEventHandler = new KeyEventHandler(Przejdz);
-            Application.Current.MainWindow.KeyDown += keyEventHandler;
+            requestingWindow = _window;
         }
 
         public void UstawTlo()
@@ -55,15 +53,12 @@ namespace TetrisWPF.Properties
             PodpisTytulowy.Background = podpis;
         }
 
-        public void Przejdz(object sender, KeyEventArgs e)
+        public void Sterowanie(object sender, KeyEventArgs e)
         {
-            if(e.Key != Key.None)
+            if (e.Key != Key.None)
             {
-                Application.Current.MainWindow.KeyDown -= keyEventHandler;
-                MainMenu main = new MainMenu();
-                App.Current.MainWindow.Content = main;
-                //this.Close();
-                //main.Show();
+                requestingWindow.SetContent(new MainMenuContent(requestingWindow));
+                requestingWindow.ResumeContent();
             }
         }
     }
