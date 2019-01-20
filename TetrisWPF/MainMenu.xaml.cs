@@ -20,13 +20,11 @@ namespace TetrisWPF.Properties
     public partial class MainMenu : Window
     {
         public static MainMenu Instance { get; private set; }
-        public static List<MainMenuOptions> listaopcji;
-        public static List<MainMenuOptions> listatrybow;
-        public static List<MainMenuOptions> lista;
         public static bool czyTryby,czyZmienic;
         public int i;
-        public List<Label> labellist;
+        //public List<Label> labellist;
         //public static BazaWynikow bazaWynikow;
+        MenuState state;
 
         public MainMenu()
         {
@@ -35,25 +33,22 @@ namespace TetrisWPF.Properties
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
 
-            listaopcji = MenuOptions.ZwrocOpcje();
-            listatrybow = GameMenuOptions.ZwrocTryby();
-            lista = listaopcji;
-            czyTryby = false;
-            i = 1;
-            czyZmienic = false;
-            labellist = new List<Label>();
+            state = new MenuStateOptions();
 
-            DataOperator bazaWynikow = DataOperator.getInstance();
-            //bazaWynikow.InicjalizujBazeWynikow();
-            
-            labellist.Add(Opcja0);
-            labellist.Add(Opcja1);
-            labellist.Add(Opcja2);
+            WriteLabels();
+        }
 
+        public void setState(MenuState current)
+        {
+            state = current;
+        }
 
-            Opcja0.Content = lista[0].zwrocNazwe();
-            Opcja1.Content = lista[1].zwrocNazwe();
-            Opcja2.Content = lista[2].zwrocNazwe();
+        public void WriteLabels()
+        {
+            List<String> tmpList = state.GetCurrent3Options();
+            Opcja0.Content = tmpList[0];
+            Opcja1.Content = tmpList[1];
+            Opcja2.Content = tmpList[2];
         }
 
         public void UstawTlo()
@@ -74,79 +69,28 @@ namespace TetrisWPF.Properties
             NapisTytulowy.Background = napis;
         }
 
-        public static void MainMenuSwitch()
-        {
-            czyTryby = true;
-            lista = listatrybow;
-            Instance.Opcja0.Content = lista[0].zwrocNazwe();
-            Instance.Opcja1.Content = lista[1].zwrocNazwe();
-            Instance.Opcja2.Content = lista[2].zwrocNazwe();
-        }
-
+        
         public void SterowanieMenu(object sender, KeyEventArgs e)
         {
-            if (czyTryby)
-            {
-                lista = listatrybow;
-                if(czyZmienic)
-                {
-                    czyZmienic = false;
-                    Opcja0.Content = lista[0].zwrocNazwe();
-                    Opcja1.Content = lista[1].zwrocNazwe();
-                    Opcja2.Content = lista[2].zwrocNazwe();
-                }
-            }
-            else
-            {
-                lista = listaopcji;
-                if(!czyZmienic)
-                {
-                    czyZmienic = true;
-                    Opcja0.Content = lista[0].zwrocNazwe();
-                    Opcja1.Content = lista[1].zwrocNazwe();
-                    Opcja2.Content = lista[2].zwrocNazwe();
-                }
-            }
-
-            int liczbaOpcji = lista.Count;
             switch(e.Key)
             {
                 case Key.Left:
-                    for(int j=2;j >=0;j--)
-                    {
-                        int z = (i - j) % liczbaOpcji;
-
-                        if(z== (-1))
-                        {
-                            labellist[j].Content = lista[liczbaOpcji - 1].zwrocNazwe();
-                        }
-                        else if(z ==(-2))
-                        {
-                            labellist[j].Content = lista[liczbaOpcji - 2].zwrocNazwe();
-                            i = liczbaOpcji;
-                        }
-                        else
-                        {
-                            labellist[j].Content = lista[z].zwrocNazwe();
-                        }                 
-                    }
-                    i = (i - 1) % liczbaOpcji;
+                    state.LeftPressed();
+                    WriteLabels();
                     break;
 
                 case Key.Right:
-                    for(int j=0; j<3;j++)
-                    {
-                        labellist[j].Content = lista[(i+j) % liczbaOpcji].zwrocNazwe();
-                    }
-                    i = (i + 1) % liczbaOpcji;
+                    state.RightPressed();
+                    WriteLabels();
                     break;
 
                 case Key.Enter:
-                    if (lista!=null && lista[i]!=null)
-                        lista[i].FunkcjaOpcji();
+                    state.EnterMiddle(this);
+                    WriteLabels();
                     break;
                 case Key.Escape:
-                    czyTryby = false;
+                    state.GoBack(this);
+                    WriteLabels();
                     break;
             }
         }
@@ -244,4 +188,119 @@ namespace TetrisWPF.Properties
             Instance.Content = new VM1();
         }
     }
+
+    
+
+    public abstract class MenuState
+    {
+        public int indexOfCurrentMiddle = 1;
+        protected List<MainMenuOptions> listOfOptions;
+
+        
+        public abstract void LeftPressed();
+        public abstract void RightPressed();
+        public abstract void EnterMiddle(MainMenu context);
+        public abstract void GoBack(MainMenu context);
+
+        public List<String> GetCurrent3Options()
+        {
+            List<String> result = new List<String>();
+            int tmp = mod((indexOfCurrentMiddle - 1) ,listOfOptions.Count());
+            result.Add(listOfOptions[mod((indexOfCurrentMiddle - 1), listOfOptions.Count())].zwrocNazwe());
+            result.Add(listOfOptions[mod(indexOfCurrentMiddle, listOfOptions.Count())].zwrocNazwe());
+            result.Add(listOfOptions[mod((indexOfCurrentMiddle+1), listOfOptions.Count())].zwrocNazwe());
+            return result;
+        }
+
+        public int mod(int x, int m)
+        {
+            return (x % m + m) % m;
+        }
+    }
+
+    public class MenuStateOptions : MenuState
+    {
+        public MenuStateOptions()
+        {
+            listOfOptions = new List<MainMenuOptions>();
+            listOfOptions.Add(new MainMenu_ClassicTet());
+            listOfOptions.Add(new MainMenu_Scoreboard());
+            listOfOptions.Add(new MainMenu_Statystyki());
+            listOfOptions.Add(new MainMenu_ExitGame());
+
+            indexOfCurrentMiddle = 1;
+        }
+
+
+
+        public override void LeftPressed()
+        {
+            indexOfCurrentMiddle--;
+            indexOfCurrentMiddle = mod(indexOfCurrentMiddle, listOfOptions.Count());
+        }
+
+        public override void RightPressed()
+        {
+            indexOfCurrentMiddle++;
+            indexOfCurrentMiddle = mod(indexOfCurrentMiddle, listOfOptions.Count());
+        }
+
+        public override void EnterMiddle(MainMenu context)
+        {
+            if (listOfOptions[indexOfCurrentMiddle].zwrocNazwe().Trim(' ').ToLower()=="graj")
+            {
+                Console.Out.Write("Graj kliknieto");
+                context.setState(new MenuStateGameModes());
+                return;
+            }
+            else
+                listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
+
+        }
+
+        public override void GoBack(MainMenu context)
+        {
+            Environment.Exit(0);
+        }
+    }
+
+    public class MenuStateGameModes : MenuState
+    {
+        public MenuStateGameModes()
+        {
+            listOfOptions = new List<MainMenuOptions>();
+            listOfOptions.Add(new GameMode_Marathon());
+            listOfOptions.Add(new GameMode_Endless());
+            listOfOptions.Add(new GameMode_Ultra());
+            listOfOptions.Add(new GameMode_LandSlide());
+            listOfOptions.Add(new GameMode_Haunted());
+
+            indexOfCurrentMiddle = 1;
+        }
+
+
+
+        public override void LeftPressed()
+        {
+            indexOfCurrentMiddle--;
+            indexOfCurrentMiddle = mod(indexOfCurrentMiddle ,listOfOptions.Count());
+        }
+
+        public override void RightPressed()
+        {
+            indexOfCurrentMiddle++;
+            indexOfCurrentMiddle = mod(indexOfCurrentMiddle, listOfOptions.Count());
+        }
+
+        public override void EnterMiddle(MainMenu context)
+        {
+            listOfOptions[indexOfCurrentMiddle].FunkcjaOpcji();
+        }
+
+        public override void GoBack(MainMenu context)
+        {
+            context.setState(new MenuStateOptions());
+        }
+    }
+
 }

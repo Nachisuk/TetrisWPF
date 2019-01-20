@@ -21,8 +21,6 @@ namespace TetrisWPF
         public string nazwa = "      Graj       ";
         public void FunkcjaOpcji()
         {
-            MainMenu.MainMenuSwitch();
-            //MainMenu.Menu(GameMenuOptions.ZwrocTryby());
         }
 
         public string zwrocNazwe()
