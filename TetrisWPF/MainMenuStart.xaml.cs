@@ -17,17 +17,14 @@ namespace TetrisWPF.Properties
     /// <summary>
     /// Logika interakcji dla klasy MainMenuStart.xaml
     /// </summary>
-    public partial class MainMenuStart : Window
+    public partial class MainMenuStart : Page
     {
         public KeyEventHandler keyEventHandler;
-        public static EventHandler eventHandlerTick;
-        public static Window ThisWindow;
+        
 
         public MainMenuStart()
         {
             InitializeComponent();
-            ThisWindow = this;
-            App.Current.MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             UstawTlo();
             keyEventHandler = new KeyEventHandler(Przejdz);
             Application.Current.MainWindow.KeyDown += keyEventHandler;

@@ -23,7 +23,6 @@ namespace TetrisWPF.Properties
         public static bool czyTryby,czyZmienic;
         public int i;
         public KeyEventHandler keyEventHandler;
-        public static EventHandler eventHandlerTick;
         //public List<Label> labellist;
         //public static BazaWynikow bazaWynikow;
         MenuState state;
