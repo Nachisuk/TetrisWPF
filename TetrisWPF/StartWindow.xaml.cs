@@ -139,7 +139,7 @@ namespace TetrisWPF
 
     public class ScoreBoardContent : WindowContent
     {
-        public VM1 page;
+        public ScoreBoard page;
 
         public ScoreBoardContent(StartWindow _window)
             : base(_window)
@@ -148,7 +148,7 @@ namespace TetrisWPF
 
         public override Page getPage()
         {
-            page = new VM1(requestingWindow);
+            page = new ScoreBoard(requestingWindow);
             keyEventHandler = new KeyEventHandler(page.Sterowanie);
             requestingWindow.KeyDown += keyEventHandler;
             requestingWindow.ChangeWindowResolution(requestingWindow.MainWindowHeight, requestingWindow.MainWindowWidth);
