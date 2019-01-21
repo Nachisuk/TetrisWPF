@@ -45,11 +45,6 @@ namespace TetrisWPF
             currentContent = content;
         }
 
-        public void FinishCurrentContent ()
-        {
-
-        }
-
         public void ResumeContent ()
         {
             ThisWindow.Content = currentContent.getPage();
