@@ -208,7 +208,6 @@ namespace TetrisWPF.Properties
             listOfOptions = new List<MainMenuOptions>();
             listOfOptions.Add(new MainMenu_ClassicTet());
             listOfOptions.Add(new MainMenu_Scoreboard(context));
-            listOfOptions.Add(new MainMenu_Statystyki());
             listOfOptions.Add(new MainMenu_ExitGame());
 
             indexOfCurrentMiddle = 1;

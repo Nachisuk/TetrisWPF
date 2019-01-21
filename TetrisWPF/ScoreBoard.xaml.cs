@@ -13,14 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TetrisWPF.Properties;
 
 namespace TetrisWPF
 {
     /// <summary>
-    /// Logika interakcji dla klasy VM1.xaml
+    /// Logika interakcji dla klasy ScoreBoard.xaml
     /// </summary>
-    public partial class VM1 : Page
+    public partial class ScoreBoard : Page
     {
         private DataOperator bazaWynikow;
         private List<String> lista;
@@ -28,11 +27,11 @@ namespace TetrisWPF
         private int aktualna;
         public StartWindow requestingWindow;
 
-        public VM1(StartWindow _window)
+        public ScoreBoard(StartWindow _window)
         {
             InitializeComponent();
             requestingWindow = _window;
-            bazaWynikow = DataOperator.getInstance(); 
+            bazaWynikow = DataOperator.getInstance();
             UstawTlo();
 
             lista = new List<String>();
@@ -65,7 +64,7 @@ namespace TetrisWPF
                 case Key.Right:
                     Debug.WriteLine("PrawyWcisniety");
                     aktualna += 1;
-                    aktualna = aktualna%iloscOpcji;
+                    aktualna = aktualna % iloscOpcji;
                     WypiszWyniki(lista[aktualna]);
                     break;
                 case Key.Escape:
@@ -104,13 +103,12 @@ namespace TetrisWPF
             filename += tryb + ".png";
 
             textBlock.Text = WynikiTrybuText(tryb);
-          
+
             ImageBrush napis = new ImageBrush();
             Image obrazek1 = new Image();
             obrazek1.Source = new BitmapImage(new Uri(filename, UriKind.Relative));
             napis.ImageSource = obrazek1.Source;
             napisGrid.Background = napis;
         }
-
     }
 }

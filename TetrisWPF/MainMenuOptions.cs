@@ -73,20 +73,6 @@ namespace TetrisWPF
         public string zwrocOpis() { return ""; }
     }
 
-    public class MainMenu_Statystyki : MainMenuOptions
-    {
-        public string nazwa = "   Statystyki    ";
-        public void FunkcjaOpcji()
-        {
-
-        }
-
-        public string zwrocNazwe()
-        {
-            return this.nazwa;
-        }
-        public string zwrocOpis() { return ""; }
-    }
     public class GameMode_Marathon : MainMenuOptions
     {
         public string nazwa = "  Maraton ";
@@ -162,34 +148,5 @@ namespace TetrisWPF
         public string zwrocOpis() { return "         Przetestuj swoją pamięć"; }
     }
 
-    public static class MenuOptions
-    {
-
-        public static List<MainMenuOptions> ZwrocOpcje()
-        {
-            List<MainMenuOptions> listaopcji = new List<MainMenuOptions>();
-            listaopcji.Add(new MainMenu_ClassicTet());
-            listaopcji.Add(new MainMenu_Scoreboard());
-            listaopcji.Add(new MainMenu_Statystyki());
-            listaopcji.Add(new MainMenu_ExitGame());
-
-            return listaopcji;
-        }
-    }
-
-    public static class GameMenuOptions
-    {
-        public static List<MainMenuOptions> ZwrocTryby()
-        {
-            List<MainMenuOptions> listaopcji = new List<MainMenuOptions>();
-            listaopcji.Add(new GameMode_Marathon());
-            listaopcji.Add(new GameMode_Endless());
-            listaopcji.Add(new GameMode_Ultra());
-            listaopcji.Add(new GameMode_LandSlide());
-            listaopcji.Add(new GameMode_Haunted());
-
-            return listaopcji;
-        }
-
-    }
+    
 }

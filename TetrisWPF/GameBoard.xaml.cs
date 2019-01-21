@@ -77,16 +77,9 @@ namespace TetrisWPF
         public static bool czyGameOver;
         public static bool czyZapauzowane;
 
-        //zmienna określająca GameMode
-
-        //public static String actualGameMode;
         public static bool czyPokazywać;
-
-        //public static KeyEventHandler keyEventHandler;
+        
         public static EventHandler eventHandlerTick;
-
-        //zmienna BazyDanych
-        //private DataOperator bazaWynikow;
 
         public DispatcherTimer mainTimer;
 
@@ -99,7 +92,6 @@ namespace TetrisWPF
         public abstract void DrawGameBoard2();
         public abstract void Rysuj();
 
-        //public abstract void Callback(object sender, EventArgs e);
         public abstract void FallingAction();
         public abstract void AdditionalAction();
 
@@ -118,8 +110,6 @@ namespace TetrisWPF
             DrawGameBoard2();
             Rysuj();
 
-            //keyEventHandler = new KeyEventHandler(Sterowanie);
-            //Application.Current.MainWindow.KeyDown += keyEventHandler;
             Console.Out.Write("Dodaje kontroler");
 
             factory = new TetrominoFactory();
@@ -349,13 +339,13 @@ namespace TetrisWPF
                         tetris.Opadaj(this);
                     }
                     break;
-                case Key.Space:
-                    Debug.WriteLine("KliknietoSpacja");
+                case Key.D:
+                    Debug.WriteLine("KliknietoD");
                     if (!czyZapauzowane)
                         tetris.Obroc(1,this);
                     break;
-                case Key.Z:
-                    Debug.WriteLine("KliknietoZ");
+                case Key.A:
+                    Debug.WriteLine("KliknietoA");
                     if (!czyZapauzowane)
                         tetris.Obroc(2, this);
                     break;
@@ -503,10 +493,7 @@ namespace TetrisWPF
 
         public GameBoardDecorator(GameBoard _gameBoard)
         {
-            //mainTimer.Tick -= eventHandlerTick;
-            //Application.Current.MainWindow.KeyDown -= keyEventHandler;
             this.gameBoard = _gameBoard;
-            
         }
 
         public override void InitializeVariables()
@@ -573,7 +560,7 @@ namespace TetrisWPF
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    Tetrimo.Landslide(this);
+                    Tetromino.Landslide(this);
                 }
                 timer.Restart();
             }
@@ -735,12 +722,8 @@ namespace TetrisWPF
         {
             if (poziom < 5) poziom = 5;
             playTime = (int)timer.ElapsedMilliseconds / 1000;
-            //Console.SetCursorPosition(5, 4);
-            // Console.Write("Pozotały czas: ");
-            // Console.SetCursorPosition(21, 4);
             float czas = 180 - playTime;
             Instance.Czas.Text = czas.ToString();
-            //  Console.Write("" + czas + " ");
             if (playTime > 180)
             {
                 czyGameOver = true;
