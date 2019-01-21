@@ -81,7 +81,6 @@
     <Compile Include="Summary.xaml.cs">
       <DependentUpon>Summary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tetrimino.cs" />
     <Compile Include="Tetromino2.cs" />
     <Page Include="GameBoard.xaml">
       <SubType>Designer</SubType>

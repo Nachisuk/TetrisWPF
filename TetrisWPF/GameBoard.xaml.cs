@@ -493,10 +493,7 @@ namespace TetrisWPF
 
         public GameBoardDecorator(GameBoard _gameBoard)
         {
-            //mainTimer.Tick -= eventHandlerTick;
-            //Application.Current.MainWindow.KeyDown -= keyEventHandler;
             this.gameBoard = _gameBoard;
-            
         }
 
         public override void InitializeVariables()
@@ -563,7 +560,7 @@ namespace TetrisWPF
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    Tetrimo.Landslide(this);
+                    Tetromino.Landslide(this);
                 }
                 timer.Restart();
             }
@@ -725,12 +722,8 @@ namespace TetrisWPF
         {
             if (poziom < 5) poziom = 5;
             playTime = (int)timer.ElapsedMilliseconds / 1000;
-            //Console.SetCursorPosition(5, 4);
-            // Console.Write("Pozotały czas: ");
-            // Console.SetCursorPosition(21, 4);
             float czas = 180 - playTime;
             Instance.Czas.Text = czas.ToString();
-            //  Console.Write("" + czas + " ");
             if (playTime > 180)
             {
                 czyGameOver = true;
