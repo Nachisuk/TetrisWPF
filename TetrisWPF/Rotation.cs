@@ -12,7 +12,7 @@ namespace TetrisWPF
         public abstract void IsOutOfBounds(ref List<int[]> lokacja);
         public abstract Boolean IsColliding(List<int[]> lokacja);
 
-        public int[,] ObrocKształt(int[,] kształt)
+        public int[,] ChangeShape(int[,] kształt)
         {
             int[,] tmpKształt = new int[kształt.GetLength(1), kształt.GetLength(0)];
             //transportowanie kolejnych "wartosci" pod polami:
@@ -61,7 +61,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[1];
                             lokacja[0] = new int[] { lokacja[3][0] - 3, lokacja[3][1] };
@@ -70,7 +70,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[1] = lokacja[3];
                             lokacja[0] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
@@ -85,7 +85,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[2];
                             lokacja[0] = new int[] { lokacja[3][0] - 2, lokacja[3][1] };
@@ -94,13 +94,13 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[2] = lokacja[1];
                             lokacja[1] = lokacja[0];
@@ -108,7 +108,7 @@ namespace TetrisWPF
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[2];
                             lokacja[2] = lokacja[3];
@@ -127,7 +127,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[2] = lokacja[0];
                             lokacja[1] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
@@ -135,7 +135,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
@@ -149,7 +149,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
@@ -157,7 +157,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[2] = lokacja[3];
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
@@ -171,7 +171,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
@@ -180,7 +180,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[1] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
@@ -189,7 +189,7 @@ namespace TetrisWPF
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
                             lokacja[3] = new int[] { lokacja[1][0] + 1, lokacja[1][1] };
@@ -197,7 +197,7 @@ namespace TetrisWPF
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[1] = lokacja[2];
                             lokacja[2] = lokacja[3];
@@ -212,14 +212,14 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
@@ -227,7 +227,7 @@ namespace TetrisWPF
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[1] = new int[] { lokacja[2][0] - 1, lokacja[2][1] };
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
@@ -235,7 +235,7 @@ namespace TetrisWPF
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
@@ -345,7 +345,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[1];
                             lokacja[0] = new int[] { lokacja[3][0] - 3, lokacja[3][1] };
@@ -354,7 +354,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[1] = lokacja[3];
                             lokacja[0] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
@@ -369,7 +369,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 3;
                             lokacja[3] = lokacja[2];
                             lokacja[0] = new int[] { lokacja[3][0] - 2, lokacja[3][1] };
@@ -378,7 +378,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[1];
                             lokacja[2] = lokacja[3];
@@ -387,13 +387,13 @@ namespace TetrisWPF
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 1;
                             lokacja[0] = new int[] { lokacja[3][0] - 2, lokacja[3][1] };
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 2;
                             lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] + 1 };
                             lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
@@ -412,7 +412,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[2] = lokacja[0];
                             lokacja[1] = new int[] { lokacja[2][0], lokacja[2][1] - 1 };
@@ -420,7 +420,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[0] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[3][0], lokacja[3][1] - 1 };
@@ -434,7 +434,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia++;
                             lokacja[3] = lokacja[2];
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
@@ -442,7 +442,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
                             lokacja[2] = lokacja[3];
                             lokacja[0] = new int[] { lokacja[1][0], lokacja[1][1] - 1 };
@@ -456,7 +456,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 3;
                             lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
                             lokacja[0] = new int[] { lokacja[1][0] - 1, lokacja[1][1] };
@@ -465,7 +465,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
 
                             lokacja[1] = lokacja[2];
@@ -480,7 +480,7 @@ namespace TetrisWPF
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 1;
                             lokacja[3] = new int[] { lokacja[2][0], lokacja[2][1] + 1 };
                             lokacja[2] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
@@ -489,7 +489,7 @@ namespace TetrisWPF
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 2;
                             lokacja[1] = new int[] { lokacja[3][0] - 1, lokacja[3][1] };
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
@@ -504,7 +504,7 @@ namespace TetrisWPF
                     {
                         case 0:
                             //przekształcenie aby było w stopniu 1
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 3;
 
                             lokacja[2] = new int[] { lokacja[1][0], lokacja[1][1] + 1 };
@@ -514,7 +514,7 @@ namespace TetrisWPF
                             break;
 
                         case 1:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 0;
 
                             lokacja[3] = new int[] { lokacja[2][0] + 1, lokacja[2][1] };
@@ -524,7 +524,7 @@ namespace TetrisWPF
                             break;
 
                         case 2:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 1;
 
 
@@ -535,7 +535,7 @@ namespace TetrisWPF
                             break;
 
                         case 3:
-                            kształt = ObrocKształt(kształt);
+                            kształt = ChangeShape(kształt);
                             stopienObrocenia = 2;
 
 
