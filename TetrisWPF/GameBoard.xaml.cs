@@ -59,7 +59,7 @@ namespace TetrisWPF
         public static Tetromino tetris;
         public static Tetromino następnyTetris;
 
-        public TetrominoFactory factory;
+        public static TetrominoFactory factory;
 
         //zmienna do losowanek
         public static Random rnd;
